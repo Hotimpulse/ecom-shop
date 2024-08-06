@@ -6,6 +6,7 @@ interface IButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  className?: React.HTMLAttributes<HTMLButtonElement>;
 }
 
 const DefaultButton: React.FC<IButtonProps> = ({

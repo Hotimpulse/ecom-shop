@@ -13,6 +13,7 @@
   gap: 48px;
   width: 100%;
   margin-top: 48px;
+  margin-bottom: 48px;
 }
 
 .catalog_search {
@@ -41,4 +42,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px 35px;
+}
+
+.catalog_grid_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
 }

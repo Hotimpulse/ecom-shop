@@ -14,12 +14,15 @@ export default function Catalog() {
           placeholder="Search by title"
           className={catalog.catalog_search}
         />
-        <div className={catalog.catalog_grid}>
-          {Array.from({ length: 12 }, (_, index) => index + 1).map((item) => (
-            <div key={item}>{<ItemCard />}</div>
-          ))}
+
+        <div className={catalog.catalog_grid_container}>
+          <div className={catalog.catalog_grid}>
+            {Array.from({ length: 12 }, (_, index) => index + 1).map((item) => (
+              <div key={item}>{<ItemCard />}</div>
+            ))}
+          </div>
+          <DefaultButton children={"Show more"} />
         </div>
-        <DefaultButton children={"Show more"} />
       </div>
     </div>
   );

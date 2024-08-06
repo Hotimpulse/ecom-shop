@@ -1,25 +1,21 @@
 .wrapper {
   display: flex;
-  height: 90px;
-  background-color: #484283;
-}
-
-.wrapper-menu {
-  display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
+
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  max-width: 1180px;
-  border: 1px solid red;
+  height: 90px;
+  background-color: #444B58;
 }
 
-.header {
+.footer {
   font-family: Jost, sans-serif;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 2rem;
   color: #fff;
-  text-decoration: none;
+  padding-left: 130px;
 }
 
 .navigation {
@@ -29,19 +25,12 @@
   font-size: 14px;
   font-weight: 600;
   color: #fff;
+  padding-right: 130px;
 }
 
 .nav_list {
   display: flex;
   align-items: center;
-  color: #fff;
-  text-decoration: none;
   gap: 40px;
   list-style: none;
-}
-
-.cart_wrapper {
-  display: flex;
-  gap: 6px;
-  align-items: center;
 }

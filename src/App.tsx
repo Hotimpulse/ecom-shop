@@ -1,10 +1,13 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header/Header";
+import useCustomRouter from "./routing/CustomRouter";
 
 function App() {
+  const routes = useCustomRouter();
+  
   return (
     <>
-      <Header />
+      <RouterProvider router={routes} />
     </>
   );
 }

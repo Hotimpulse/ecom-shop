@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
     <header className={header.wrapper}>
-      <div className={header['wrapper-menu']}>
+      <div className={header["wrapper-menu"]}>
         <NavLink to="/">
           <a href="#" className={header.header}>
             Goods4you
@@ -13,16 +13,12 @@ export default function Header() {
         </NavLink>
         <nav className={header.navigation}>
           <ul className={header.nav_list}>
-            <NavLink to="/catalog">
-              <a href="#" className={header.nav_list}>
-                Catalog
-              </a>
-            </NavLink>
-            <NavLink to="/faq">
-              <a href="#" className={header.nav_list}>
-                FAQ
-              </a>
-            </NavLink>
+            <a href="#catalog" className={header.nav_list}>
+              Catalog
+            </a>
+            <a href="#faq" className={header.nav_list}>
+              FAQ
+            </a>
             <NavLink to="/cart">
               <div className={header.cart_wrapper}>
                 <a href="#" className={header.nav_list}>
@@ -30,11 +26,9 @@ export default function Header() {
                 </a>
               </div>
             </NavLink>
-            <NavLink to="/">
-              <a href="#" className={header.nav_list}>
-                Johnson Smith
-              </a>
-            </NavLink>
+            <a href="#" className={header.nav_list}>
+              Johnson Smith
+            </a>
           </ul>
         </nav>
       </div>

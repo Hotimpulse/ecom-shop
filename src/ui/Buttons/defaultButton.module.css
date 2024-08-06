@@ -1,10 +1,12 @@
 .btn_default {
-  width: 148px;
+  max-width: 207px;
   height: 62px;
 
   background-color: #f14f4f;
   color: #fff;
+  border-radius: 4px;
   border: none;
+  padding: 20px 50px;
 
   font-family: Jost, sans-serif;
   font-size: 16px;
@@ -15,5 +17,10 @@
 }
 
 .btn_default:hover {
-  background-color: #8C2828;
+  background-color: #8c2828;
+}
+
+.btn_default:disabled {
+  background-color: #f8afaf;
+  cursor: not-allowed;
 }

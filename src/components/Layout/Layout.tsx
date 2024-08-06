@@ -5,7 +5,8 @@ import Footer from "../Footer/Footer";
 
 export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const pageName = pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(1);
+  const pageName =
+    pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(1);
 
   return (
     <HelmetProvider>

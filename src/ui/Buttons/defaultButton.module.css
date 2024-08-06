@@ -1,0 +1,19 @@
+.btn_default {
+  width: 148px;
+  height: 62px;
+
+  background-color: #f14f4f;
+  color: #fff;
+  border: none;
+
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_default:hover {
+  background-color: #8C2828;
+}

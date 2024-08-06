@@ -1,11 +1,11 @@
 import React from "react";
+import defaultButton from "./defaultButton.module.css";
 
 interface IButtonProps {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
-  className?: string;
 }
 
 const DefaultButton: React.FC<IButtonProps> = ({
@@ -13,14 +13,13 @@ const DefaultButton: React.FC<IButtonProps> = ({
   onClick,
   type = "button",
   disabled = false,
-  className = "",
 }) => {
   return (
     <button
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`btn_${className}`}
+      className={defaultButton.btn_default}
     >
       {children}
     </button>

@@ -14,7 +14,7 @@ export default function Hero() {
             at low prices
           </p>
           <DefaultButton children={"Go to shopping"} />
-      <p className={hero.hero_back_text}>Goods4you</p>
+          <p className={hero.hero_back_text}>Goods4you</p>
         </div>
       </div>
     </div>

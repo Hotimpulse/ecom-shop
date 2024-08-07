@@ -1,12 +1,19 @@
 .price_wrapper {
   display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
 }
 
 .price_container {
   display: flex;
   max-width: 620px;
-  background-color: #ff000004;
+  background-color: #0000001c;
   gap: 89px;
+  border-radius: 0.2rem;
+  max-height: 86px;
+  place-items: center;
+  padding: 12px;
 }
 
 .price_wrapper {
@@ -18,6 +25,7 @@
 .price_column {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .newprice {
@@ -37,11 +45,12 @@
 }
 
 .discount {
+  display: flex;
+  align-items: center;
   font-family: Jost, sans-serif;
   color: #444b58;
   font-size: 16px;
   line-height: 24px;
-  margin-top: 19px;
 }
 
 .discount_number {

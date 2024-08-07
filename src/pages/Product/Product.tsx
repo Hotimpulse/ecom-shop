@@ -1,4 +1,3 @@
-import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import product from "./product.module.css";
 import Gallery from "@src/components/Gallery/Gallery";
 import DiscountedPricePurchase from "@src/components/DiscountedPricePurchase/DiscountedPricePurchase";
@@ -16,8 +15,8 @@ export default function Product() {
             <span className={product.product_info_ratings}>
               {Array.from({ length: 4 }).map((star) => (
                 <svg
-                  width="16"
-                  height="15"
+                  width="20"
+                  height="16"
                   viewBox="0 0 16 15"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +28,8 @@ export default function Product() {
                 </svg>
               ))}
               <svg
-                width="16"
-                height="15"
+                width="20"
+                height="16"
                 viewBox="0 0 16 15"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,9 +44,13 @@ export default function Product() {
               electronics, selfie accessories
             </span>
           </div>
-          <hr />
-          <p className={product.product_info_stock}>In Stock - Only X left!</p>
-          <hr />
+          <div className={product.product_info_stock_wrapper}>
+            <hr />
+            <p className={product.product_info_stock}>
+              In Stock - Only 5 left!
+            </p>
+            <hr />
+          </div>
           <p className={product.product_info_description}>
             The Essence Mascara Lash Princess is a popular mascara known for its
             volumizing and lengthening effects. Achieve dramatic lashes with

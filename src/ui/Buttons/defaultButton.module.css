@@ -1,6 +1,7 @@
 .btn_default {
-  max-width: 207px;
+  max-width: 220px;
   height: 62px;
+  text-wrap: nowrap;
 
   background-color: #f14f4f;
   color: #fff;
@@ -13,7 +14,7 @@
   line-height: 22px;
 
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn_default:hover {

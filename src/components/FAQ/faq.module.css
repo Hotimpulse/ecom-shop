@@ -10,9 +10,9 @@
 }
 
 .faq_container {
+  width: 100%;
   max-width: 880px;
   max-height: 388px;
-  overflow: auto;
 }
 
 .faq_headline {

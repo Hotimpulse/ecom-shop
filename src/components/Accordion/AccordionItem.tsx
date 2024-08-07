@@ -1,12 +1,24 @@
 import { IAccordionItem } from "@src/interfaces/IAccordionItem";
 import accordion from "./accordion.module.css";
+import { useState } from "react";
 
 export default function AccordionItem({ title, text }: IAccordionItem) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleSVGClick = () => {
+    setIsOpen((isOpen) => !isOpen);
+  };
+
   return (
-    <div className={accordion.accordion_item_wrapper}>
+    <div className={accordion.accordion_item_wrapper} onClick={handleSVGClick}>
       <div className={accordion.accordion_title_wrapper}>
         <p className={accordion.accordion_title}>{title}</p>
         <svg
+          className={
+            isOpen
+              ? `${accordion.accordion_cross_svg} ${accordion.active}`
+              : accordion.accordion_cross_svg
+          }
           width="25"
           height="26"
           viewBox="0 0 25 26"
@@ -19,7 +31,7 @@ export default function AccordionItem({ title, text }: IAccordionItem) {
           />
         </svg>
       </div>
-      <p className={accordion.accordion_text}>{text}</p>
+      {isOpen && <p className={accordion.accordion_text}>{text}</p>}
     </div>
   );
 }

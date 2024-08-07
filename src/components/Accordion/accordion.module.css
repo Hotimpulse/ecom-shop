@@ -5,12 +5,14 @@
   align-items: left;
   margin: 0 auto;
   max-width: 880px;
+  overflow: hidden;
 }
 
 .accordion_title_wrapper {
   display: flex;
   justify-content: space-between;
   margin: 20px 0;
+  cursor: pointer;
 }
 
 .accordion_title {
@@ -26,4 +28,13 @@
   line-height: 26px;
   color: #fff;
   font-weight: 600;
+}
+
+.accordion_cross_svg {
+  transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.accordion_cross_svg.active {
+  transform: rotate(45deg);
 }

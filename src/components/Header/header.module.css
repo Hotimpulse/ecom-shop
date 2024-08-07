@@ -33,14 +33,18 @@
 .nav_list {
   display: flex;
   align-items: center;
-  color: #fff;
-  text-decoration: none;
   gap: 40px;
   list-style: none;
+}
+
+.nav_item {
+  color: #fff;
+  text-decoration: none;
 }
 
 .cart_wrapper {
   display: flex;
   gap: 6px;
   align-items: center;
+  color: #fff;
 }

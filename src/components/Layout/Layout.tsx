@@ -5,17 +5,25 @@ import Footer from "../Footer/Footer";
 
 export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const pageName =
-    pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(1);
+  const pageName = pathname.slice(1);
+  const capitalizedName = capitalizeFirstLetter(pageName);
+
+  function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
     <HelmetProvider>
-      <Helmet title={`${pageName}`} />
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <Helmet title={`${capitalizedName}`} />
+      <div
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+      >
+        <Header />
+        <main style={{ flex: "1" }}>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </HelmetProvider>
   );
 }

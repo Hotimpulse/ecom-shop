@@ -13,8 +13,8 @@ export default function ItemCard() {
       </div>
       <div className={itemCard.card_bottom_part}>
         <div className={itemCard.card_texts}>
-          <h4 className={itemCard.card_title}>Name of the product</h4>
-          <span className={itemCard.card_price}>Price</span>
+          <h4 className={itemCard.card_title}>Essence Mascara Lash Princess</h4>
+          <span className={itemCard.card_price}>$110</span>
         </div>
         <button className={itemCard.card_btn}>
           <svg

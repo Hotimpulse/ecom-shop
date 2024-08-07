@@ -1,0 +1,29 @@
+.accordion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin: 0 auto;
+  max-width: 880px;
+}
+
+.accordion_title_wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.accordion_title {
+  font-family: Jost, sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  color: #fff;
+}
+
+.accordion_text {
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+  font-weight: 600;
+}

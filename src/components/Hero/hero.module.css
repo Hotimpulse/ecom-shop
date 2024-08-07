@@ -1,7 +1,6 @@
 .hero_section {
   display: flex;
   background-color: #484283;
-  border-top: 1px solid #fff;
   font-family: Jost, sans-serif;
   height: 500px;
 }

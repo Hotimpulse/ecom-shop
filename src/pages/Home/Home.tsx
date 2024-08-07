@@ -1,6 +1,7 @@
 import Hero from "@src/components/Hero/Hero";
 import home from "./home.module.css";
 import Catalog from "@src/components/Catalog/Catalog";
+import Faq from "@src/components/FAQ/Faq";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
         <Catalog />
       </section>
       <section id="faq">
-        {/* <Catalog /> */}
+        <Faq />
       </section>
     </div>
   );

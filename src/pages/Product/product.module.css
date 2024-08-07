@@ -1,0 +1,71 @@
+.product_wrapper {
+  display: flex;
+  place-items: center;
+  margin: 0 auto;
+}
+
+.product_container {
+  display: flex;
+  place-items: center;
+  margin: 0 auto;
+  max-width: 1180px;
+  max-height: 600px;
+  gap: 40px;
+  margin-top: 48px;
+}
+
+.product_info_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 24px;
+  height: 600px;
+}
+
+.product_info_title {
+  font-family: Jost, sans-serif;
+  font-size: 36px;
+  line-height: 56px;
+  max-width: 620px;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.product_info_stats_wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product_info_categories {
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.product_info_stock {
+  font-family: Jost, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #f14f4f;
+}
+
+.product_info_description {
+  font-family: Jost, sans-serif;
+  font-size: 18px;
+  line-height: 30px;
+  color: #444b58;
+}
+
+.product_info_subtitles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.product_info_warranty,
+.product_info_shipping {
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #646464;
+}

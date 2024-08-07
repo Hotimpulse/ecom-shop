@@ -1,0 +1,53 @@
+.price_wrapper {
+  display: flex;
+}
+
+.price_container {
+  display: flex;
+  max-width: 620px;
+  background-color: #ff000004;
+  gap: 89px;
+}
+
+.price_wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.price_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.newprice {
+  font-family: Jost, sans-serif;
+  color: #444b58;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 600;
+}
+
+.oldprice {
+  font-family: Jost, sans-serif;
+  color: #646464;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: line-through;
+}
+
+.discount {
+  font-family: Jost, sans-serif;
+  color: #444b58;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 19px;
+}
+
+.discount_number {
+  font-family: Jost, sans-serif;
+  color: #444b58;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+}

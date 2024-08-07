@@ -1,0 +1,26 @@
+.gallery_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.gallery_container {
+  display: flex;
+}
+
+.img_container {
+  max-width: 520px;
+}
+
+.small_imgs {
+  display: flex;
+  margin-top: 10px;
+  gap: 20px;
+  width: 100%;
+}
+
+.small_img {
+  max-width: 70px;
+  max-height: 70px;
+}

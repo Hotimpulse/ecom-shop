@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Route } from "react-router";
 import { Suspense, lazy } from "react";
 import Spinner from "@src/ui/Spinner";
@@ -18,7 +19,7 @@ export const customRoutes: JSX.Element[] = [
   />,
   <Route
     key={"1"}
-    path="/product/:id "
+    path="/product/:id"
     element={
       <Suspense fallback={<Spinner />}>
         <LazyProduct />

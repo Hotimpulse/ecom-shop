@@ -38,3 +38,8 @@
   gap: 40px;
   list-style: none;
 }
+
+.nav_item {
+  color: #fff;
+  text-decoration: none;
+}

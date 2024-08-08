@@ -1,4 +1,4 @@
-import product from "./product.module.css";
+import product from "./product.module.scss";
 import Gallery from "@src/components/Gallery/Gallery";
 import DiscountedPricePurchase from "@src/components/DiscountedPricePurchase/DiscountedPricePurchase";
 

@@ -18,6 +18,7 @@ export default function Header() {
         </NavLink>
         {menuOpen ? (
           <div
+            onClick={toggleMenu}
             className={header.burger_veil + (menuOpen ? ` ${header.open}` : "")}
           >
             <Navigation mobile={"mobile"} />

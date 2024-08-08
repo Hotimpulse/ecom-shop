@@ -1,3 +1,5 @@
+@import "../../ui/variables.scss";
+
 .product_wrapper {
   display: flex;
   place-items: center;
@@ -13,6 +15,11 @@
   max-width: 1180px;
   max-height: 600px;
   gap: 40px;
+  padding: 0 130px;
+  @media (max-width: $phone-width) {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
 }
 
 .product_info_wrapper {

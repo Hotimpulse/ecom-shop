@@ -5,6 +5,7 @@ import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
 
 interface INavigation {
   mobile: string;
+  onClick?: () => void;
 }
 
 export default function Navigation({ mobile }: INavigation) {

@@ -1,0 +1,15 @@
+@import "../../ui/variables.scss";
+
+.cart_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+  width: min(100% - 0rem, 1440px);
+  position: relative;
+  z-index: 2;
+  padding: 0 130px;
+  @media (max-width: $phone-width) {
+    padding: 0 1rem;
+  }
+}
+

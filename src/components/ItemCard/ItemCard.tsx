@@ -1,8 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
 
 export default function ItemCard() {
+  const navigate = useNavigate();
+
+  function handleCardClick(): void {
+    navigate("/product/1");
+  }
+
   return (
-    <div className={itemCard.card_item}>
+    <div className={itemCard.card_item} onClick={handleCardClick}>
       <div className={itemCard.card_img_container}>
         <img
           src="./src/assets/pics/shoe.png"

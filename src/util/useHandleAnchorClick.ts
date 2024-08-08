@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
-export default function useHandleAnchorClick() {
+export default function useHandleAnchorClick(hash: string) {
   const navigate = useNavigate();
 
-  navigate("/");
-  setTimeout(() => {
-    const element = document.querySelector("hash");
-    if (element) {
-      element.scrollIntoView();
-    }
-  }, 0);
+  return () => {
+    navigate(`/`);
+    setTimeout(() => {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView();
+      }
+    }, 0);
+  };
 }

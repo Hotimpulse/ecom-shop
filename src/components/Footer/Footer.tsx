@@ -1,43 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import footer from "./footer.module.scss";
+import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
 
 export default function Footer() {
-  const navigate = useNavigate();
-
-  function handleAnchorClick(): void {
-    navigate("/");
-    setTimeout(() => {
-      const element = document.querySelector("hash");
-      if (element) {
-        element.scrollIntoView();
-      }
-    }, 0);
-  }
   return (
     <footer className={footer.wrapper}>
       <div className={footer["wrapper-menu"]}>
-        <a href="#" className={footer.footer} onClick={handleAnchorClick}>
+        <NavLink to="/#" className={footer.footer}>
           Goods4you
-        </a>
+        </NavLink>
         <nav className={footer.navigation}>
           <ul className={footer.nav_list}>
             <li>
-              <a
-                href="#catalog"
+              <NavLink
+                to="/#catalog"
                 className={footer.nav_item}
-                onClick={handleAnchorClick}
+                onClick={useHandleAnchorClick("#catalog")}
               >
                 Catalog
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#faq"
+              <NavLink
+                to="/#faq"
                 className={footer.nav_item}
-                onClick={handleAnchorClick}
+                onClick={useHandleAnchorClick("#faq")}
               >
                 FAQ
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

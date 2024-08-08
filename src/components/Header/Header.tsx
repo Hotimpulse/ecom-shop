@@ -1,7 +1,7 @@
 import { useState } from "react";
 import header from "./header.module.scss";
-import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
 import Navigation from "../Navigation/Navigation";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,9 +13,9 @@ export default function Header() {
   return (
     <header className={header.wrapper}>
       <div className={header["wrapper-menu"]}>
-        <a href="#" className={header.header} onClick={useHandleAnchorClick}>
+        <NavLink to="/" className={header.header}>
           Goods4you
-        </a>
+        </NavLink>
         {menuOpen ? (
           <div
             className={header.burger_veil + (menuOpen ? ` ${header.open}` : "")}

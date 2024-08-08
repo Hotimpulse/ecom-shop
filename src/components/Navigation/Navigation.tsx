@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import header from "../Header/header.module.scss";
 import CartComponent from "../Header/CartComponent";
 import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
@@ -16,22 +16,22 @@ export default function Navigation({ mobile }: INavigation) {
         }
       >
         <li>
-          <a
-            href="#catalog"
+          <Link
+            to="/#catalog"
             className={header.nav_item}
-            onClick={useHandleAnchorClick}
+            onClick={useHandleAnchorClick("#catalog")}
           >
             Catalog
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#faq"
+          <Link
+            to="/#faq"
             className={header.nav_item}
-            onClick={useHandleAnchorClick}
+            onClick={useHandleAnchorClick("#faq")}
           >
             FAQ
-          </a>
+          </Link>
         </li>
         <li>
           <NavLink to="/cart">
@@ -41,13 +41,13 @@ export default function Navigation({ mobile }: INavigation) {
           </NavLink>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/"
             className={header.nav_item}
-            onClick={useHandleAnchorClick}
+            onClick={useHandleAnchorClick("#")}
           >
             Johnson Smith
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

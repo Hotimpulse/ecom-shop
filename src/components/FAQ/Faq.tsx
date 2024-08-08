@@ -9,6 +9,7 @@ const data: IAccordionItem[] = [
         containing your order number and a tracking link. You can also log in to
         your account on our website and go to the "My Orders" section to track
         your delivery status.`,
+    key: "0",
   },
   {
     title: "What payment methods do you accept?",
@@ -16,6 +17,7 @@ const data: IAccordionItem[] = [
         containing your order number and a tracking link. You can also log in to
         your account on our website and go to the "My Orders" section to track
         your delivery status.`,
+    key: "1",
   },
   {
     title: "How can I return or exchange an item?",
@@ -23,6 +25,7 @@ const data: IAccordionItem[] = [
         containing your order number and a tracking link. You can also log in to
         your account on our website and go to the "My Orders" section to track
         your delivery status.`,
+    key: "2",
   },
 ];
 

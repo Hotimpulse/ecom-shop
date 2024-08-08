@@ -14,7 +14,8 @@
 }
 
 .main_img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
   cursor: pointer;
 }
 
@@ -27,7 +28,8 @@
   display: flex;
   margin-top: 10px;
   gap: 20px;
-  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .small_img {

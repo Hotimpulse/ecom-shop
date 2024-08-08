@@ -13,7 +13,7 @@ export default function Product() {
           </h2>
           <div className={product.product_info_stats_wrapper}>
             <span className={product.product_info_ratings}>
-              {Array.from({ length: 4 }).map((star) => (
+              {Array.from({ length: 4 }).map(() => (
                 <svg
                   width="20"
                   height="16"

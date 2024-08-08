@@ -1,4 +1,4 @@
-import header from "./header.module.css";
+import header from "./header.module.scss";
 
 export default function CartComponent() {
   return (

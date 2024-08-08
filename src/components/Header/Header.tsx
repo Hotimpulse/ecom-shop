@@ -1,64 +1,38 @@
-import CartComponent from "./CartComponent";
-import header from "./header.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import header from "./header.module.scss";
+import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
+import Navigation from "../Navigation/Navigation";
 
 export default function Header() {
-  const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  function handleAnchorClick(): void {
-    navigate("/");
-    setTimeout(() => {
-      const element = document.querySelector("hash");
-      if (element) {
-        element.scrollIntoView();
-      }
-    }, 0);
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
   }
 
   return (
     <header className={header.wrapper}>
       <div className={header["wrapper-menu"]}>
-        <a href="#" className={header.header} onClick={handleAnchorClick}>
+        <a href="#" className={header.header} onClick={useHandleAnchorClick}>
           Goods4you
         </a>
-        <nav className={header.navigation}>
-          <ul className={header.nav_list}>
-            <li>
-              <a
-                href="#catalog"
-                className={header.nav_item}
-                onClick={handleAnchorClick}
-              >
-                Catalog
-              </a>
-            </li>
-            <li>
-              <a
-                href="#faq"
-                className={header.nav_item}
-                onClick={handleAnchorClick}
-              >
-                FAQ
-              </a>
-            </li>
-            <li>
-              <NavLink to="/cart">
-                <div className={header.cart_wrapper}>
-                  <CartComponent />
-                </div>
-              </NavLink>
-            </li>
-            <li>
-              <a
-                href="#"
-                className={header.nav_item}
-                onClick={handleAnchorClick}
-              >
-                Johnson Smith
-              </a>
-            </li>
-          </ul>
-        </nav>
+        {menuOpen ? (
+          <div
+            className={header.burger_veil + (menuOpen ? ` ${header.open}` : "")}
+          >
+            <Navigation mobile={"mobile"} />
+          </div>
+        ) : (
+          <Navigation mobile={"pc"} />
+        )}
+      </div>
+      <div
+        className={header.burger_menu + (menuOpen ? ` ${header.open}` : "")}
+        onClick={toggleMenu}
+      >
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import footer from "./footer.module.css";
+import footer from "./footer.module.scss";
 
 export default function Footer() {
   const navigate = useNavigate();

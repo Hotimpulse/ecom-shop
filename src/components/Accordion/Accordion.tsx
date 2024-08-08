@@ -7,9 +7,9 @@ export default function Accordion({ data }: IAccordionProps) {
   return (
     <div className={accordion.accordion}>
       <hr />
-      {data.map((item: IAccordionItem, index: number) => (
+      {data.map((item: IAccordionItem) => (
         <>
-          <AccordionItem key={`${index}`} title={item.title} text={item.text} />
+          <AccordionItem key={item.key} title={item.title} text={item.text} />
           <hr />
         </>
       ))}

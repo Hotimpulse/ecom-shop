@@ -1,0 +1,24 @@
+/* Color Variables */
+$primary-color: #fff;
+$bg-color: #484283;
+$accent-color: #444B58;
+$button-color: #f14f4f;
+$button-hover-color: #8c2828;
+$button-disabled-color: #f8afaf;
+
+/* Media Queries */
+$phone-width: 420px;
+$tablet-width: 600px;
+$desktop-width: 1024px;
+
+@media (max-width: $phone-width) {
+  /* Styles for phones */
+}
+
+@media (min-width: $phone-width) and (max-width: $tablet-width) {
+  /* Styles for tablets */
+}
+
+@media (min-width: $tablet-width) {
+  /* Styles for desktops */
+}

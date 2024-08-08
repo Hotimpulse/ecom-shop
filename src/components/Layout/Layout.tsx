@@ -16,7 +16,7 @@ export default function Layout(): JSX.Element {
     <HelmetProvider>
       <Helmet title={`${capitalizedName}`} />
       <div
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
+        style={{ display: "flex", flexDirection: "column", minHeight: "100vh", overflowX: "hidden" }}
       >
         <Header />
         <main style={{ flex: "1" }}>

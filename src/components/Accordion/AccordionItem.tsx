@@ -10,8 +10,12 @@ export default function AccordionItem({ title, text }: IAccordionItem) {
   };
 
   return (
-    <div className={accordion.accordion_item_wrapper} onClick={handleSVGClick}>
-      <div className={accordion.accordion_title_wrapper}>
+    <div
+      key={`${title}`}
+      className={accordion.accordion_item_wrapper}
+      onClick={handleSVGClick}
+    >
+      <div className={accordion.accordion_title_wrapper} key={`${title} + ${title}`}>
         <p className={accordion.accordion_title}>{title}</p>
         <svg
           className={

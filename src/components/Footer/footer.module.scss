@@ -1,7 +1,10 @@
+@import "../../ui/variables.scss";
+
 .wrapper {
   display: flex;
   height: 90px;
   background-color: #444b58;
+  padding: 2rem;
 }
 
 .wrapper-menu {
@@ -13,6 +16,9 @@
   max-width: 1180px;
   position: static;
   bottom: 0;
+  @media (max-width: $phone-width) {
+    max-width: 300px;
+  }
 }
 
 .footer {

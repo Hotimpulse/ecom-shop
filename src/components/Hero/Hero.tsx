@@ -1,5 +1,5 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
-import hero from "./hero.module.css";
+import hero from "./hero.module.scss";
 
 export default function Hero() {
   return (

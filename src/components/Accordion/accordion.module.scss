@@ -1,3 +1,5 @@
+@import "../../ui/variables.scss";
+
 .accordion {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,9 @@
   justify-content: space-between;
   margin: 20px 0;
   cursor: pointer;
+  @media (max-width: $phone-width) {
+    gap: 1rem;
+  }
 }
 
 .accordion_title {

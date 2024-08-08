@@ -1,6 +1,6 @@
 import { IAccordionItem } from "@src/interfaces/IAccordionItem";
 import { IAccordionProps } from "@src/interfaces/IAccordionProps";
-import accordion from "./accordion.module.css";
+import accordion from "./accordion.module.scss";
 import AccordionItem from "./AccordionItem";
 
 export default function Accordion({ data }: IAccordionProps) {

@@ -1,4 +1,4 @@
-import faq from "./faq.module.css";
+import faq from "./faq.module.scss";
 import { IAccordionItem } from "@src/interfaces/IAccordionItem";
 import Accordion from "../Accordion/Accordion";
 

@@ -1,5 +1,5 @@
 import { IAccordionItem } from "@src/interfaces/IAccordionItem";
-import accordion from "./accordion.module.css";
+import accordion from "./accordion.module.scss";
 import { useState } from "react";
 
 export default function AccordionItem({ title, text }: IAccordionItem) {

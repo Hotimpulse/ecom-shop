@@ -1,4 +1,4 @@
-import itemCard from "./itemCard.module.css";
+import itemCard from "./itemCard.module.scss";
 
 export default function ItemCard() {
   return (

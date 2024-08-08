@@ -1,9 +1,12 @@
+@import "../../ui/variables.scss";
+
 .card_item {
   display: flex;
   flex-direction: column;
   gap: 10px;
   max-width: 370px;
   max-height: 366px;
+  cursor: pointer;
 }
 
 img {
@@ -72,6 +75,16 @@ img {
 
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+
+  @media (max-width: $phone-width) {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    max-width: 40px;
+    max-height: 30px;
+  }
 }
 
 .card_btn:hover {
@@ -81,4 +94,21 @@ img {
 .card_btn:disabled {
   background-color: #f8afaf;
   cursor: not-allowed;
+}
+
+svg {
+  @media (max-width: $phone-width) {
+    width: 25px;
+    height: 15px;
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (min-width: $tablet-width) {
+    width: 40px;
+    height: 20px;
+  }
 }

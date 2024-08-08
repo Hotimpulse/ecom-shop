@@ -1,10 +1,21 @@
+@import "../../ui/variables.scss";
+
 .catalog_wrapper {
   display: flex;
   flex-direction: column;
   justify-content: left;
   margin: 0 auto;
-  max-width: 1180px;
+  max-width: 1440px;
   font-family: Jost, sans-serif;
+  padding: 0 130px;
+  @media (max-width: $phone-width) {
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    padding: 0 1rem;
+  }
 }
 
 .catalog_container {
@@ -20,6 +31,16 @@
   height: 62px;
   padding: 0 20px;
   color: #b2b5bb;
+  @media (max-width: $phone-width) {
+    margin: 0;
+    padding: 0 1rem;
+    max-width: calc(100% - 10px);
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    width: 100%;
+    max-width: calc(100% - 10px);
+  }
 }
 
 .catalog_search::placeholder {
@@ -42,6 +63,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px 35px;
+  @media (max-width: $phone-width) {
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    padding: 0 1rem;
+  }
 }
 
 .catalog_grid_container {

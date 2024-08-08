@@ -1,5 +1,5 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
-import catalog from "./catalog.module.css";
+import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
 
 export default function Catalog() {

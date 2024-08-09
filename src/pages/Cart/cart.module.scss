@@ -2,15 +2,46 @@
 
 .cart_wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 48px;
   justify-content: flex-start;
   margin: 0 auto;
   width: min(100% - 0rem, 1440px);
+
+  padding: 0 130px;
+  margin-top: 48px;
   position: relative;
   z-index: 2;
-  padding: 0 130px;
+  font-family: Jost, sans-serif;
+
   @media (max-width: $phone-width) {
     padding: 0 1rem;
   }
-  padding: 0 130px;
 }
 
+.cart_header {
+  font-size: 36px;
+}
+
+.cart_main_container {
+  display: flex;
+  gap: 48px;
+}
+
+.cart_items_container {
+  display: flex;
+  border: 1px solid $border-grey;
+  border-radius: 4px;
+  padding: 20px 40px;
+  max-width: 776px;
+  height: 566px;
+}
+
+.cart_content_box {
+}
+
+.cart_contents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

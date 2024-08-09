@@ -1,41 +1,24 @@
 import cart from "./cart.module.scss";
+import CartInfo from "@src/components/Cart/CartInfo/CartInfo";
+import CartItems from "@src/components/Cart/CartItems/CartItems";
 
 export default function Cart() {
   return (
     <div className={cart.cart_wrapper}>
-      <div className={cart.cart_container}>
-        <h1>My cart</h1>
-        <div className={cart.cart_content_box}>
-          <div className={cart.cart_contents}>
-            <div className="component_cart_item">
-              <img src="./" alt="picture of the item" />
-              <h3>Essence Mascara Lash Princess</h3>
-              <span>$110</span>
+      <h1 className={cart.cart_header}>My cart</h1>
 
-              <button>-</button>
-              <span>1 item</span>
-              <button>+</button>
-              <span>Delete</span>
-            </div>
-          </div>
-
-          <div className={cart.cart_info}>
-            <div>
-              <p>Total count</p>
-              <p>3 items</p>
-            </div>
-
-            <div>
-              <p>Price without discount</p>
-              <p>$700</p>
-            </div>
-
-            <div>
-              <p>Total price</p>
-              <p>$590</p>
+      <div className={cart.cart_main_container}>
+        <div className={cart.cart_items_container}>
+          <div className={cart.cart_content_box}>
+            <div className={cart.cart_contents}>
+              <CartItems />
+              <CartItems />
+              <CartItems />
+              <CartItems />
             </div>
           </div>
         </div>
+        <CartInfo />
       </div>
     </div>
   );

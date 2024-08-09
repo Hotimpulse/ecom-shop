@@ -1,0 +1,71 @@
+@import "../../../ui/variables.scss";
+
+.cart_item {
+  display: flex;
+  border-radius: 4px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: $bg-fade;
+    cursor: pointer;
+  }
+}
+
+.cart_item_wrapper {
+  display: flex;
+  place-items: center;
+  padding: 12px;
+  width: 696px;
+  max-height: 124px;
+  gap: 24px;
+}
+
+.cart_left_container {
+  display: flex;
+  place-items: center;
+  gap: 10px;
+  width: 362px;
+}
+
+.cart_item_pic {
+  max-width: 100px;
+}
+
+.cart_item_text {
+  display: flex;
+  flex-direction: column;
+  max-width: 252px;
+}
+
+.cart_item_heading {
+  font-size: 16px;
+}
+
+.cart_item_price {
+  font-size: 18px;
+}
+
+.cart_right_container {
+  display: flex;
+  place-items: center;
+  gap: 48px;
+  max-width: 286px;
+  font-size: 14px;
+  color: $accent-color;
+}
+
+.cart_btn_container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  max-width: 188xp;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+  }
+}

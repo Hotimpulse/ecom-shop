@@ -1,4 +1,4 @@
-import gallery from "./gallery.module.css";
+import gallery from "./gallery.module.scss";
 
 export default function Gallery() {
   return (

@@ -1,5 +1,5 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
-import discountedPricePurchase from "./discountedPricePurchase.module.css";
+import discountedPricePurchase from "./discountedPricePurchase.module.scss";
 
 export default function DiscountedPricePurchase() {
   return (

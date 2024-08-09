@@ -30,11 +30,15 @@
 .catalog_search {
   height: 62px;
   padding: 0 20px;
-  color: #b2b5bb;
+  color: $accent-color;
   @media (max-width: $phone-width) {
     margin: 0;
     padding: 0 1rem;
     max-width: calc(100% - 10px);
+  }
+
+  &::placeholder {
+    color: $count-grey;
   }
 
   @media (min-width: $phone-width) and (max-width: $tablet-width) {

@@ -33,6 +33,13 @@
   color: #fff;
   font-weight: 600;
   margin-bottom: 20px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.accordion_text .open {
+  max-height: fit-content;
 }
 
 .accordion_cross_svg {

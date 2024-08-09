@@ -1,7 +1,14 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import cart from "./cartItems.module.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function CartItems() {
+  const navigate = useNavigate();
+
+  function handleItemClick(): void {
+    navigate("/product/1");
+  }
+
   return (
     <div className={cart.cart_item}>
       <div className={cart.cart_item_wrapper}>
@@ -12,7 +19,7 @@ export default function CartItems() {
             alt="picture of the item"
           />
           <div className={cart.cart_item_text}>
-            <h3 className={cart.cart_item_heading}>
+            <h3 className={cart.cart_item_heading} onClick={handleItemClick}>
               Essence Mascara Lash Princess
             </h3>
             <span className={cart.cart_item_price}>$110</span>

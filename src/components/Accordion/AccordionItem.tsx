@@ -1,13 +1,24 @@
 import { IAccordionItem } from "@src/interfaces/IAccordionItem";
 import accordion from "./accordion.module.scss";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function AccordionItem({ title, text }: IAccordionItem) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const contentRef = useRef<HTMLParagraphElement>(null);
 
   const handleSVGClick = () => {
     setIsOpen((isOpen) => !isOpen);
   };
+
+  useEffect(() => {
+    if (contentRef.current) {
+      if (isOpen) {
+        contentRef.current.style.maxHeight = `${contentRef.current.scrollHeight}px`;
+      } else {
+        contentRef.current.style.maxHeight = "0";
+      }
+    }
+  }, [isOpen]);
 
   return (
     <div
@@ -15,7 +26,10 @@ export default function AccordionItem({ title, text }: IAccordionItem) {
       className={accordion.accordion_item_wrapper}
       onClick={handleSVGClick}
     >
-      <div className={accordion.accordion_title_wrapper} key={`${title} + ${title}`}>
+      <div
+        className={accordion.accordion_title_wrapper}
+        key={`${title} + ${title}`}
+      >
         <p className={accordion.accordion_title}>{title}</p>
         <svg
           className={
@@ -35,7 +49,12 @@ export default function AccordionItem({ title, text }: IAccordionItem) {
           />
         </svg>
       </div>
-      {isOpen && <p className={accordion.accordion_text}>{text}</p>}
+      <p
+        className={`${accordion.accordion_text} ${isOpen ? "open" : ""}`}
+        ref={contentRef}
+      >
+        {text}
+      </p>
     </div>
   );
 }

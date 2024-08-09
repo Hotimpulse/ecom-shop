@@ -42,11 +42,7 @@ export default function Navigation({ mobile }: INavigation) {
           </NavLink>
         </li>
         <li>
-          <Link
-            to="/"
-            className={header.nav_item}
-            onClick={useHandleAnchorClick("#")}
-          >
+          <Link to="#" className={header.nav_item}>
             Johnson Smith
           </Link>
         </li>

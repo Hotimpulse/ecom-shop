@@ -9,13 +9,11 @@ export default function Cart() {
 
       <div className={cart.cart_main_container}>
         <div className={cart.cart_items_container}>
-          <div className={cart.cart_content_box}>
-            <div className={cart.cart_contents}>
-              <CartItems />
-              <CartItems />
-              <CartItems />
-              <CartItems />
-            </div>
+          <div className={cart.cart_contents}>
+            <CartItems />
+            <CartItems />
+            <CartItems />
+            <CartItems />
           </div>
         </div>
         <CartInfo />

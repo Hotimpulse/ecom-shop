@@ -13,7 +13,7 @@
     padding: 0 1rem;
   }
 
-  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+  @media (width < 1280px) {
     padding: 0 1rem;
   }
 }
@@ -31,6 +31,9 @@
   height: 62px;
   padding: 0 20px;
   color: $accent-color;
+  background-color: $search-input;
+  border: none;
+  border-radius: 4px;
   @media (max-width: $phone-width) {
     margin: 0;
     padding: 0 1rem;
@@ -65,9 +68,14 @@
 
 .catalog_grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px 35px;
   @media (max-width: $phone-width) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: $tablet-width) {
     grid-template-columns: 1fr 1fr;
     margin: 0;
     padding: 0 1rem;
@@ -80,4 +88,53 @@
   justify-content: center;
   align-items: center;
   gap: 48px;
+}
+
+.catalog_grid_item {
+  display: flex;
+  justify-content: flex;
+  margin-bottom: 6px;
+}
+
+.catalog_btn_container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  max-width: 188px;
+
+  button {
+    display: flex;
+    place-items: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+
+    @media (max-width: $phone-width) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: $phone-width) {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  @media ((min-width: $phone-width) and (max-width: $tablet-width)) {
+    gap: 1rem;
+    max-width: 200px;
+    height: fit-content;
+  }
+}
+
+.cart_btn_container {
+  display: flex;
+  gap: 20px;
+  place-items: center;
+  button {
+    width: 50px;
+    height: 50px;
+    padding: 16px;
+  }
 }

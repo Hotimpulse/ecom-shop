@@ -1,11 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
-import { ReactNode } from "react";
-
-interface IItemCard {
-  children?: ReactNode;
-  heading?: ReactNode;
-}
+import { IItemCard } from "@src/interfaces/IItemCard";
 
 export default function ItemCard({ children, heading }: IItemCard) {
   const navigate = useNavigate();
@@ -18,7 +13,12 @@ export default function ItemCard({ children, heading }: IItemCard) {
     <div className={itemCard.card_item}>
       <div className={itemCard.card_img_container} onClick={handleCardClick}>
         <picture>
-          <source srcSet="/src/assets/pics/shoe.avif" type="image/avif" />
+          <source
+            srcSet="/src/assets/pics/shoe.avif"
+            type="image/avif"
+            media="(orientation: portrait)"
+            sizes="(max-width: 320px) 256px"
+          />
           <img
             loading="lazy"
             src="./src/assets/pics/shoe.avif"

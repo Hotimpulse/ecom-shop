@@ -92,7 +92,7 @@ export default function Cart() {
               }
             >
               <div className={cartItems.cart_right_delcontainer}>
-                <DefaultButton>
+                <DefaultButton ariaLabel="Delete Button">
                   <svg
                     width="20"
                     height="20"

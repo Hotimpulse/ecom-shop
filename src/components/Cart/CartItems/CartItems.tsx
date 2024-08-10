@@ -1,11 +1,6 @@
+import { ICartItems } from "@src/interfaces/ICartItems";
 import cart from "./cartItems.module.scss";
 import { useNavigate } from "react-router-dom";
-import { ReactNode } from "react";
-
-interface ICartItems {
-  children?: ReactNode;
-  image?: ReactNode;
-}
 
 export default function CartItems({ children, image }: ICartItems) {
   const navigate = useNavigate();

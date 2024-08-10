@@ -2,11 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import header from "../Header/header.module.scss";
 import CartComponent from "../Header/CartComponent";
 import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
-
-interface INavigation {
-  mobile: string;
-  onClick?: () => void;
-}
+import { INavigation } from "@src/interfaces/INavigation";
 
 export default function Navigation({ mobile }: INavigation) {
   return (

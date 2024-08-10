@@ -1,14 +1,11 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import cart from "./plusMinusItem.module.scss";
-
-interface IPlusMinusItem {
-  count?: string;
-}
+import { IPlusMinusItem } from "@src/interfaces/IPlusMinusItem";
 
 export default function PlusMinusItem({ count }: IPlusMinusItem) {
   return (
     <>
-      <DefaultButton>
+      <DefaultButton ariaLabel="Decrease Button">
         <svg
           width="18"
           height="4"
@@ -23,7 +20,7 @@ export default function PlusMinusItem({ count }: IPlusMinusItem) {
         </svg>
       </DefaultButton>
       <span className={cart.cart_item_count}>{count} item</span>
-      <DefaultButton>
+      <DefaultButton ariaLabel="Increase Button">
         <svg
           width="18"
           height="18"

@@ -1,7 +1,10 @@
+@import "./../../ui/variables.scss";
+
 .error-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  place-items: center;
+  margin-top: 20rem;
 }
 
 .container {
@@ -12,7 +15,8 @@
   margin: 0 auto;
 }
 
-h1 {
+.heading {
   font-family: Jost;
   font-size: 3rem;
+  color: $accent-color;
 }

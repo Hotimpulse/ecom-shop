@@ -54,6 +54,10 @@
   max-width: 620px;
   font-weight: 600;
   margin-bottom: -6px;
+
+  @media (width < 1200px) {
+    margin-top: 2rem;
+  }
 }
 
 .product_info_ratings {

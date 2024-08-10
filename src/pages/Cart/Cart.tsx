@@ -15,16 +15,46 @@ export default function Cart() {
           <div className={cart.cart_contents}>
             <CartItems
               image={
-                <img
-                  className={cartItems.cart_item_pic}
-                  src="./src/assets/pics/gallery_shoe_pic.png"
-                  alt="picture of the item"
-                />
+                <picture>
+                  <source
+                    srcSet="./src/assets/pics/gallery_shoe_pic.avif"
+                    type="image/avif"
+                  />
+                  <img
+                    className={cartItems.cart_item_pic}
+                    src="./src/assets/pics/gallery_shoe_pic.avif"
+                    alt="picture of the item"
+                    loading="lazy"
+                  />
+                </picture>
               }
             >
               <div className={cartItems.cart_right_container}>
                 <div className={cartItems.cart_btn_container}>
-                  <PlusMinusItem />
+                  <PlusMinusItem count="1" />
+                </div>
+                <span className={cartItems.cart_item_del_text}>Delete</span>
+              </div>
+            </CartItems>
+            <CartItems
+              image={
+                <picture>
+                  <source
+                    srcSet="./src/assets/pics/gallery_shoe_pic.avif"
+                    type="image/avif"
+                  />
+                  <img
+                    className={cartItems.cart_item_pic}
+                    src="./src/assets/pics/gallery_shoe_pic.avif"
+                    alt="picture of the item"
+                    loading="lazy"
+                  />
+                </picture>
+              }
+            >
+              <div className={cartItems.cart_right_container}>
+                <div className={cartItems.cart_btn_container}>
+                  <PlusMinusItem count="1" />
                 </div>
                 <span className={cartItems.cart_item_del_text}>Delete</span>
               </div>
@@ -33,41 +63,32 @@ export default function Cart() {
               image={
                 <img
                   className={cartItems.cart_item_pic}
-                  src="./src/assets/pics/gallery_shoe_pic.png"
+                  src="./src/assets/pics/gallery_shoe_pic.avif"
                   alt="picture of the item"
                 />
               }
             >
               <div className={cartItems.cart_right_container}>
                 <div className={cartItems.cart_btn_container}>
-                  <PlusMinusItem />
+                  <PlusMinusItem count="5" />
                 </div>
                 <span className={cartItems.cart_item_del_text}>Delete</span>
               </div>
             </CartItems>
             <CartItems
               image={
-                <img
-                  className={cartItems.cart_item_pic}
-                  src="./src/assets/pics/gallery_shoe_pic.png"
-                  alt="picture of the item"
-                />
-              }
-            >
-              <div className={cartItems.cart_right_container}>
-                <div className={cartItems.cart_btn_container}>
-                  <PlusMinusItem />
-                </div>
-                <span className={cartItems.cart_item_del_text}>Delete</span>
-              </div>
-            </CartItems>
-            <CartItems
-              image={
-                <img
-                  className={cartItems.cart_item_delpic}
-                  src="./src/assets/pics/gallery_shoe_pic.png"
-                  alt="picture of the item"
-                />
+                <picture>
+                  <source
+                    srcSet="./src/assets/pics/gallery_shoe_pic.avif"
+                    type="image/avif"
+                  />
+                  <img
+                    className={cartItems.cart_item_pic}
+                    src="./src/assets/pics/gallery_shoe_pic.avif"
+                    alt="picture of the item"
+                    loading="lazy"
+                  />
+                </picture>
               }
             >
               <div className={cartItems.cart_right_delcontainer}>

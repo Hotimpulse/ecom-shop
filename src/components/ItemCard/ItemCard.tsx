@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 
 interface IItemCard {
   children?: ReactNode;
+  heading?: ReactNode;
 }
 
-export default function ItemCard({ children }: IItemCard) {
+export default function ItemCard({ children, heading }: IItemCard) {
   const navigate = useNavigate();
 
   function handleCardClick(): void {
@@ -16,16 +17,20 @@ export default function ItemCard({ children }: IItemCard) {
   return (
     <div className={itemCard.card_item}>
       <div className={itemCard.card_img_container} onClick={handleCardClick}>
-        <img
-          src="./src/assets/pics/shoe.png"
-          alt="image of a product"
-          className={itemCard.card_img}
-        />
+        <picture>
+          <source srcSet="/src/assets/pics/shoe.avif" type="image/avif" />
+          <img
+            loading="lazy"
+            src="./src/assets/pics/shoe.avif"
+            alt="image of a product"
+            className={itemCard.card_img}
+          />
+        </picture>
         <div className={itemCard.card_text_overlay}>Show details</div>
       </div>
       <div className={itemCard.card_bottom_part}>
         <div className={itemCard.card_texts} onClick={handleCardClick}>
-          <h4 className={itemCard.card_title}>Essence Mascara Lash Princess</h4>
+          {heading}
           <span className={itemCard.card_price}>$110</span>
         </div>
         {children ? (

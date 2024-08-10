@@ -2,12 +2,12 @@ import cart from "./cartItems.module.scss";
 import { useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 
-interface ICartItemsInterface {
+interface ICartItems {
   children?: ReactNode;
   image?: ReactNode;
 }
 
-export default function CartItems({ children, image }: ICartItemsInterface) {
+export default function CartItems({ children, image }: ICartItems) {
   const navigate = useNavigate();
 
   function handleItemClick(): void {

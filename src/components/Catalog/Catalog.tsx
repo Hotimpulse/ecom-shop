@@ -1,6 +1,8 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
+import itemCard from "./../ItemCard/itemCard.module.scss";
+import React from "react";
 
 export default function Catalog() {
   return (
@@ -18,9 +20,15 @@ export default function Catalog() {
         <div className={catalog.catalog_grid_container}>
           <div className={catalog.catalog_grid}>
             {Array.from({ length: 12 }, (_, index) => (
-              <>
+              <React.Fragment key={index}>
                 {index === 5 ? (
-                  <ItemCard>
+                  <ItemCard
+                    heading={
+                      <h4 className={itemCard.card_title_overflow}>
+                        Essence Mascara Lash Princess
+                      </h4>
+                    }
+                  >
                     <div className={catalog.cart_btn_container}>
                       <DefaultButton>
                         <svg
@@ -58,9 +66,15 @@ export default function Catalog() {
                     </div>
                   </ItemCard>
                 ) : (
-                  <ItemCard />
+                  <ItemCard
+                    heading={
+                      <h4 className={itemCard.card_title}>
+                        Essence Mascara Lash Princess
+                      </h4>
+                    }
+                  />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </div>
           <DefaultButton children={"Show more"} />

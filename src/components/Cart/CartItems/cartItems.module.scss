@@ -12,11 +12,12 @@
 
 .cart_item_wrapper {
   display: flex;
-  place-items: center;
+  justify-content: space-between;
   padding: 12px;
   width: 696px;
-  max-height: 124px;
+  max-height: fit-content;
   gap: 24px;
+
   @media (max-width: $phone-width) {
     max-width: 300px;
     max-height: fit-content;
@@ -59,6 +60,7 @@
 }
 
 .cart_item_heading {
+  color: $accent-color;
   font-size: 16px;
 
   &:hover {
@@ -127,8 +129,37 @@
   }
 }
 
-
+.cart_item_del_text {
+  color: $border-grey;
+  transition: color 0.3s ease-in-out;
+}
 
 .cart_item_del_text:hover {
+  color: $accent-color;
   text-decoration: underline;
+}
+
+.cart_right_delcontainer {
+  display: flex;
+  place-items: center;
+  button {
+    padding: 16px;
+    width: 50px;
+    height: 50px;
+    @media (max-width: $phone-width) {
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      svg {
+        width: 15px;
+        height: 13px;
+      }
+    }
+  }
+}
+
+.cart_item_delpic {
+  max-width: 100px;
+  filter: contrast(90%);
+  filter: opacity(50%);
 }

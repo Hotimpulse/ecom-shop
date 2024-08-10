@@ -7,6 +7,10 @@
   @media (max-width: $phone-width) {
     max-width: 300px;
   }
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 2rem;
+  }
 }
 
 .cart_pricing_wrap {

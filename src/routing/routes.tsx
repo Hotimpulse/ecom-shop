@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Route } from "react-router";
 import { Suspense, lazy } from "react";
-import Spinner from "@src/ui/Spinner";
+import Spinner from "@src/ui/Spinner/Spinner";
 
 const LazyHome = lazy(() => import("@src/pages/Home/Home"));
 const LazyCart = lazy(() => import("@src/pages/Cart/Cart"));

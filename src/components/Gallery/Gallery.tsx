@@ -9,6 +9,10 @@ export default function Gallery() {
             <source
               srcSet="/src/assets/pics/gallery_shoe_pic.avif"
               type="image/avif"
+              sizes="(max-width: 320px) 300px,
+ (min-width: 650px) 520px,
+  (min-width: 650px) 520px,
+              "
             />
             <img
               loading="lazy"
@@ -24,6 +28,7 @@ export default function Gallery() {
                 <source
                   srcSet="/src/assets/pics/gallery_shoe_pic.avif"
                   type="image/avif"
+                  sizes="(min-width: 320px) 70px"
                 />
                 <img
                   loading="lazy"

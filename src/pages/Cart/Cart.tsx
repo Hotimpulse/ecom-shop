@@ -83,7 +83,7 @@ export default function Cart() {
                     type="image/avif"
                   />
                   <img
-                    className={cartItems.cart_item_pic}
+                    className={cartItems.cart_item_delpic}
                     src="./src/assets/pics/gallery_shoe_pic.avif"
                     alt="picture of the item"
                     loading="lazy"

@@ -1,6 +1,11 @@
 import header from "./header.module.scss";
 
-export default function CartComponent() {
+interface ICartComponent {
+  itemCount?: number;
+}
+
+export default function CartComponent({ itemCount }: ICartComponent) {
+  console.log(itemCount);
   return (
     <div className={header.cart_wrapper}>
       <span>Cart</span>
@@ -17,7 +22,9 @@ export default function CartComponent() {
             fill="white"
           />
         </svg>
-        <div className={header.cart_item_count}>1</div>
+        {itemCount === 0 ? null : (
+          <div className={header.cart_item_count}>{itemCount}</div>
+        )}
       </div>
     </div>
   );

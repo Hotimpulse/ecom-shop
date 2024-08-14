@@ -2,7 +2,12 @@ import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
 import { IItemCard } from "@src/interfaces/IItemCard";
 
-export default function ItemCard({ children, heading }: IItemCard) {
+export default function ItemCard({
+  children,
+  title,
+  price,
+  thumbnail,
+}: IItemCard) {
   const navigate = useNavigate();
 
   function handleCardClick(): void {
@@ -14,14 +19,14 @@ export default function ItemCard({ children, heading }: IItemCard) {
       <div className={itemCard.card_img_container} onClick={handleCardClick}>
         <picture>
           <source
-            srcSet="/src/assets/pics/shoe.avif"
+            srcSet={thumbnail}
             type="image/avif"
             media="(orientation: portrait)"
             sizes="(max-width: 320px) 256px"
           />
           <img
             loading="lazy"
-            src="./src/assets/pics/shoe.avif"
+            src={thumbnail}
             alt="image of a product"
             className={itemCard.card_img}
           />
@@ -30,8 +35,8 @@ export default function ItemCard({ children, heading }: IItemCard) {
       </div>
       <div className={itemCard.card_bottom_part}>
         <div className={itemCard.card_texts} onClick={handleCardClick}>
-          {heading}
-          <span className={itemCard.card_price}>$110</span>
+          {title}
+          <span className={itemCard.card_price}>${price}</span>
         </div>
         {children ? (
           children

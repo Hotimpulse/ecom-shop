@@ -1,10 +1,68 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
-import itemCard from "./../ItemCard/itemCard.module.scss";
-import React from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import { toast } from "react-toastify";
+
+interface IProducts {
+  products: {
+    products: [];
+    total?: number;
+    skip: number;
+    limit: number;
+  };
+  status: string;
+}
+
+const initialState: IProducts = {
+  products: {
+    products: [],
+    skip: 1,
+    limit: 12,
+  },
+  status: "loading",
+};
+
+const reducer = (state: IProducts, action: { type: string; payload }) => {
+  switch (action.type) {
+    case "dataReceived":
+      return { ...state, products: action.payload, status: "ready" };
+    case "dataFailed":
+      return { ...state, status: "error" };
+    default:
+      throw new Error("Unknown action");
+  }
+};
 
 export default function Catalog() {
+  const [{ products: products }, dispatch] = useReducer(reducer, initialState);
+  console.log("🚀 ~ Catalog ~ products:", products)
+  const [input, setInput] = useState<string>("");
+
+  useEffect(() => {
+    const getItems = async () => {
+      try {
+        const response = await fetch(
+          `https://dummyjson.com/products/search?q=&limit=${initialState.products.limit}&skip=${initialState.products.skip}`
+        );
+
+        if (!response.ok) throw new Error("No response from the server");
+
+        const data = response
+          .json()
+          .then((data) => dispatch({ type: "dataReceived", payload: data }));
+      } catch (error) {
+        toast.error("Error getting products, check your connection!");
+      }
+    };
+
+    getItems();
+  }, [input]);
+
+  function handleSearch(query: string): void {
+    setInput(query);
+  }
+
   return (
     <div className={catalog.catalog_wrapper}>
       <div className={catalog.catalog_container}>
@@ -15,65 +73,18 @@ export default function Catalog() {
           type="text"
           placeholder="Search by title"
           className={catalog.catalog_search}
+          onChange={(e) => handleSearch(e.currentTarget.value)}
         />
 
         <div className={catalog.catalog_grid_container}>
           <div className={catalog.catalog_grid}>
             {Array.from({ length: 12 }, (_, index) => (
               <React.Fragment key={index}>
-                {index === 5 ? (
-                  <ItemCard
-                    heading={
-                      <h4 className={itemCard.card_title_overflow}>
-                        Essence Mascara Lash Princess
-                      </h4>
-                    }
-                  >
-                    <div className={catalog.cart_btn_container}>
-                      <DefaultButton>
-                        <svg
-                          width="18"
-                          height="10"
-                          viewBox="0 0 18 4"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16.5 3.50012L1.5 3.50012C0.671573 3.50012 0 2.82855 0 2.00012C0 1.17169 0.671573 0.500122 1.5 0.500122L16.5 0.500122C17.3284 0.500122 18 1.17169 18 2.00012C18 2.82855 17.3284 3.50012 16.5 3.50012Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </DefaultButton>
-                      <span className={catalog.cart_item_count}>1 item</span>
-                      <DefaultButton>
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17 10L1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447716 8 1 8L17 8C17.5523 8 18 8.44772 18 9C18 9.55228 17.5523 10 17 10Z"
-                            fill="white"
-                          />
-                          <path
-                            d="M8 17L8 1C8 0.447715 8.44772 0 9 0C9.55228 0 10 0.447716 10 1L10 17C10 17.5523 9.55228 18 9 18C8.44772 18 8 17.5523 8 17Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </DefaultButton>
-                    </div>
-                  </ItemCard>
-                ) : (
-                  <ItemCard
-                    heading={
-                      <h4 className={itemCard.card_title}>
-                        Essence Mascara Lash Princess
-                      </h4>
-                    }
-                  />
-                )}
+                <ItemCard
+                  title={products?.products[index]?.title}
+                  thumbnail={products?.products[index]?.thumbnail}
+                  price={products?.products[index]?.price}
+                />
               </React.Fragment>
             ))}
           </div>

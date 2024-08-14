@@ -6,17 +6,40 @@ import { INavigation } from "@src/interfaces/INavigation";
 import { useEffect, useReducer } from "react";
 import { toast } from "react-toastify";
 
-interface IUserCart {
-  carts: {
-    carts: [];
-    total: number;
-    skip: number;
-    limit: number;
-  };
+interface ICartItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+  total: number;
+  discountPercentage: number;
+  discountedTotal: number;
+  thumbnail: string;
+}
+
+interface ICart {
+  id: number;
+  products: ICartItem[];
+  total: number;
+  discountedTotal: number;
+  userId: number;
+  totalProducts: number;
+  totalQuantity: number;
+}
+
+interface ICartsData {
+  carts: ICart[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+interface IUserCarts {
+  carts: ICartsData;
   status: string;
 }
 
-const initialState: IUserCart = {
+const initialState: IUserCarts = {
   carts: {
     carts: [],
     total: 0,
@@ -26,7 +49,11 @@ const initialState: IUserCart = {
   status: "loading", // 'loading', 'error', 'ready'
 };
 
-const reducer = (state: IUserCart, action: { type: string; payload }) => {
+type CartAction =
+  | { type: "dataReceived"; payload: ICartsData }
+  | { type: "dataFailed"; payload: object };
+
+const reducer = (state: IUserCarts, action: CartAction): IUserCarts => {
   switch (action.type) {
     case "dataReceived":
       return { ...state, carts: action.payload, status: "ready" };

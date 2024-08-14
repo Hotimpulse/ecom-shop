@@ -3,16 +3,7 @@ import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
 import React, { useEffect, useReducer, useState } from "react";
 import { toast } from "react-toastify";
-
-interface IProducts {
-  products: {
-    products: [];
-    total?: number;
-    skip: number;
-    limit: number;
-  };
-  status: string;
-}
+import { IProducts, IProductsData } from "@src/interfaces/IProducts";
 
 const initialState: IProducts = {
   products: {
@@ -23,7 +14,11 @@ const initialState: IProducts = {
   status: "loading",
 };
 
-const reducer = (state: IProducts, action: { type: string; payload }) => {
+type ProductsAction =
+  | { type: "dataReceived"; payload: IProductsData }
+  | { type: "dataFailed" };
+
+const reducer = (state: IProducts, action: ProductsAction): IProducts => {
   switch (action.type) {
     case "dataReceived":
       return { ...state, products: action.payload, status: "ready" };
@@ -36,14 +31,14 @@ const reducer = (state: IProducts, action: { type: string; payload }) => {
 
 export default function Catalog() {
   const [{ products: products }, dispatch] = useReducer(reducer, initialState);
-  console.log("🚀 ~ Catalog ~ products:", products)
+  console.log("🚀 ~ Catalog ~ products:", products);
   const [input, setInput] = useState<string>("");
 
   useEffect(() => {
-    const getItems = async () => {
+    const getItems = setTimeout(async () => {
       try {
         const response = await fetch(
-          `https://dummyjson.com/products/search?q=&limit=${initialState.products.limit}&skip=${initialState.products.skip}`
+          `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${initialState.products.skip}`
         );
 
         if (!response.ok) throw new Error("No response from the server");
@@ -54,9 +49,9 @@ export default function Catalog() {
       } catch (error) {
         toast.error("Error getting products, check your connection!");
       }
-    };
+    }, 2000);
 
-    getItems();
+    return () => clearTimeout(getItems);
   }, [input]);
 
   function handleSearch(query: string): void {
@@ -88,7 +83,7 @@ export default function Catalog() {
               </React.Fragment>
             ))}
           </div>
-          <DefaultButton children={"Show more"} />
+          <DefaultButton children={"Show more"} dispatch={dispatch} />
         </div>
       </div>
     </div>

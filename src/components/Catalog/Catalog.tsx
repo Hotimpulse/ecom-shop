@@ -9,7 +9,7 @@ import Spinner from "@src/ui/Spinner/Spinner";
 const initialState: IProducts = {
   products: {
     products: [],
-    skip: 1,
+    skip: 0,
     limit: 12,
     total: 0,
   },
@@ -23,7 +23,16 @@ type ProductsAction =
 const reducer = (state: IProducts, action: ProductsAction): IProducts => {
   switch (action.type) {
     case "dataReceived":
-      return { ...state, products: action.payload, status: "ready" };
+      return {
+        ...state,
+        products: {
+          ...state.products,
+          products: [...state.products.products, ...action.payload.products],
+          skip: state.products.skip + state.products.limit,
+          total: action.payload.total,
+        },
+        status: "ready",
+      };
     case "dataFailed":
       return { ...state, status: "error" };
     default:
@@ -38,7 +47,7 @@ export default function Catalog() {
   const getItems = async () => {
     try {
       const response = await fetch(
-        `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${initialState.products.skip}`
+        `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${products.skip}`
       );
 
       if (!response.ok) throw new Error("No response from the server");
@@ -68,6 +77,8 @@ export default function Catalog() {
     getItems();
   }
 
+  const allProducts = products.products.length >= products.total;
+
   return (
     <div className={catalog.catalog_wrapper}>
       <div className={catalog.catalog_container}>
@@ -80,9 +91,7 @@ export default function Catalog() {
           className={catalog.catalog_search}
           onChange={(e) => handleSearch(e.currentTarget.value)}
         />
-        {status === "error" && products?.products.length === 0 && (
-          <p>No items were found ❌</p>
-        )}
+        {status === "error" && <p>No items were found ❌</p>}
         {products?.products.length === 0 && <p>No items were found ❌</p>}
         {status === "loading" && <Spinner />}
         {status === "ready" && (
@@ -93,15 +102,22 @@ export default function Catalog() {
                   <ItemCard
                     title={product?.title}
                     thumbnail={product?.thumbnail}
-                    price={product?.price}
+                    price={Math.round(
+                      product?.price -
+                        (product?.price * product?.discountPercentage) / 100
+                    )}
                   />
                 </React.Fragment>
               ))}
             </div>
-            <DefaultButton
-              children={"Show more"}
-              onClick={handleLoadProducts}
-            />
+            {!allProducts ? (
+              <DefaultButton
+                children={"Show more"}
+                onClick={handleLoadProducts}
+              />
+            ) : (
+              <div style={{ marginBottom: "2rem" }}></div>
+            )}
           </div>
         )}
       </div>

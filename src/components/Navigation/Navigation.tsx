@@ -4,40 +4,12 @@ import CartComponent from "../Header/CartComponent";
 import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
 import { INavigation } from "@src/interfaces/INavigation";
 import { useEffect, useReducer } from "react";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import { ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
 
-interface ICartItem {
-  id: number;
-  title: string;
-  price: number;
-  quantity: number;
-  total: number;
-  discountPercentage: number;
-  discountedTotal: number;
-  thumbnail: string;
-}
-
-interface ICart {
-  id: number;
-  products: ICartItem[];
-  total: number;
-  discountedTotal: number;
-  userId: number;
-  totalProducts: number;
-  totalQuantity: number;
-}
-
-interface ICartsData {
-  carts: ICart[];
-  total: number;
-  skip: number;
-  limit: number;
-}
-
-interface IUserCarts {
-  carts: ICartsData;
-  status: string;
-}
+type CartAction =
+  | { type: "dataReceived"; payload: ICartsData }
+  | { type: "dataFailed"; payload: object };
 
 const initialState: IUserCarts = {
   carts: {
@@ -48,10 +20,6 @@ const initialState: IUserCarts = {
   },
   status: "loading", // 'loading', 'error', 'ready'
 };
-
-type CartAction =
-  | { type: "dataReceived"; payload: ICartsData }
-  | { type: "dataFailed"; payload: object };
 
 const reducer = (state: IUserCarts, action: CartAction): IUserCarts => {
   switch (action.type) {
@@ -74,10 +42,11 @@ export default function Navigation({ mobile }: INavigation) {
 
         if (!response.ok) throw new Error("No response from the server");
 
-        const data = response
+        response
           .json()
           .then((data) => dispatch({ type: "dataReceived", payload: data }));
       } catch (error) {
+        toast.error("No response from the server");
         dispatch({ type: "dataFailed", payload: {} });
       }
     };

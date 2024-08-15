@@ -5,7 +5,6 @@ interface ICartComponent {
 }
 
 export default function CartComponent({ itemCount }: ICartComponent) {
-  console.log(itemCount);
   return (
     <div className={header.cart_wrapper}>
       <span>Cart</span>

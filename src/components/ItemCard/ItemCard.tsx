@@ -20,14 +20,18 @@ export default function ItemCard({
         <picture>
           <source
             srcSet={thumbnail}
-            type="image/avif"
+            type="image/png"
             media="(orientation: portrait)"
             sizes="(max-width: 320px) 256px"
           />
           <img
             loading="lazy"
             src={thumbnail}
-            alt="image of a product"
+            alt={
+              title !== undefined
+                ? "image of " + title
+                : "no such product available"
+            }
             className={itemCard.card_img}
           />
         </picture>

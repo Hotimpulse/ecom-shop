@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-types */
-import React, { Dispatch } from "react";
+import React from "react";
 import defaultButton from "./defaultButton.module.scss";
 
 interface IButtonProps {
@@ -9,7 +8,6 @@ interface IButtonProps {
   disabled?: boolean;
   ariaLabel?: string;
   className?: React.HTMLAttributes<HTMLButtonElement>;
-  dispatch: Dispatch<{ type: string; payload: {} }>;
 }
 
 const DefaultButton: React.FC<IButtonProps> = ({

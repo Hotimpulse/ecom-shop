@@ -7,7 +7,7 @@ export interface IProduct {
 
 export interface IProductsData {
   products: IProduct[];
-  total?: number;
+  total: number;
   skip: number;
   limit: number;
 }

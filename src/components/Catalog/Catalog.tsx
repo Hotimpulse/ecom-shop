@@ -33,7 +33,6 @@ const reducer = (state: IProducts, action: ProductsAction): IProducts => {
 
 export default function Catalog() {
   const [{ products, status }, dispatch] = useReducer(reducer, initialState);
-
   const [input, setInput] = useState<string>("");
 
   const getItems = async () => {
@@ -53,11 +52,12 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    const getDebouncedData = setTimeout(() => {
       getItems();
     }, 1000);
 
-    return () => clearTimeout(getItems);
+    return () => clearTimeout(getDebouncedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
   function handleSearch(query: string): void {

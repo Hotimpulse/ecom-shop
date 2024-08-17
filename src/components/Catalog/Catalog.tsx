@@ -1,64 +1,27 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { IProducts, IProductsData } from "@src/interfaces/IProducts";
 import Spinner from "@src/ui/Spinner/Spinner";
-
-const initialState: IProducts = {
-  products: {
-    products: [],
-    skip: 0,
-    limit: 12,
-    total: 0,
-  },
-  status: "loading",
-};
-
-type ProductsAction =
-  | { type: "dataReceived"; payload: IProductsData; append: boolean }
-  | { type: "dataFailed"; payload: object };
-
-const reducer = (state: IProducts, action: ProductsAction): IProducts => {
-  switch (action.type) {
-    case "dataReceived":
-      return {
-        ...state,
-        products: {
-          ...state.products,
-          products: action.append
-            ? [...state.products.products, ...action.payload.products]
-            : action.payload.products,
-          skip: action.append
-            ? state.products.skip + action.payload.products.length
-            : action.payload.products.length,
-          total: action.payload.total,
-        },
-        status: "ready",
-      };
-    case "dataFailed":
-      return { ...state, status: "error" };
-    default:
-      throw new Error("Unknown action");
-  }
-};
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@src/store/store";
+import { getData } from "@src/store/products/productsSlice";
+import { IProduct } from "@src/interfaces/IProducts";
 
 export default function Catalog() {
-  const [{ products, status }, dispatch] = useReducer(reducer, initialState);
-  console.log("🚀 ~ Catalog ~ products:", products.products, products.total);
+  const { products, status } = useSelector(
+    (store: RootState) => store.products
+  );
+  console.log("🚀 ~ REDUX ~ products:", products);
+
+  const dispatch = useDispatch();
+
   const [input, setInput] = useState<string>("");
 
-  const getItems = async (append = false) => {
+  const loadItems = async (append = false) => {
     try {
-      const response = await fetch(
-        `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${append ? products.skip : 0}`
-      );
-
-      if (!response.ok) throw new Error("No response from the server");
-
-      const data = await response.json();
-      dispatch({ type: "dataReceived", payload: data, append });
+      dispatch(getData(input, append));
     } catch (error) {
       toast.error("Error getting products, check your connection!");
       dispatch({ type: "dataFailed", payload: {} });
@@ -67,7 +30,7 @@ export default function Catalog() {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      getItems(false);
+      loadItems(false);
     }, 1000);
 
     return () => clearTimeout(timeoutId);
@@ -79,7 +42,7 @@ export default function Catalog() {
   }
 
   function handleLoadProducts(): void {
-    getItems(true);
+    loadItems(true);
   }
 
   const allProductsLoaded = products.products.length >= products.total;
@@ -104,7 +67,7 @@ export default function Catalog() {
         {status === "ready" && (
           <div className={catalog.catalog_grid_container}>
             <div className={catalog.catalog_grid}>
-              {products.products.map((product, index: number) => (
+              {products.products.map((product: IProduct, index: number) => (
                 <React.Fragment key={index}>
                   <ItemCard
                     title={product?.title}

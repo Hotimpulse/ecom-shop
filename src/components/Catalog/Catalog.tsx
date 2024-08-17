@@ -17,7 +17,7 @@ const initialState: IProducts = {
 };
 
 type ProductsAction =
-  | { type: "dataReceived"; payload: IProductsData }
+  | { type: "dataReceived"; payload: IProductsData; append: boolean }
   | { type: "dataFailed"; payload: object };
 
 const reducer = (state: IProducts, action: ProductsAction): IProducts => {
@@ -27,8 +27,12 @@ const reducer = (state: IProducts, action: ProductsAction): IProducts => {
         ...state,
         products: {
           ...state.products,
-          products: [...state.products.products, ...action.payload.products],
-          skip: state.products.skip + state.products.limit,
+          products: action.append
+            ? [...state.products.products, ...action.payload.products]
+            : action.payload.products,
+          skip: action.append
+            ? state.products.skip + action.payload.products.length
+            : action.payload.products.length,
           total: action.payload.total,
         },
         status: "ready",
@@ -42,18 +46,19 @@ const reducer = (state: IProducts, action: ProductsAction): IProducts => {
 
 export default function Catalog() {
   const [{ products, status }, dispatch] = useReducer(reducer, initialState);
+  console.log("🚀 ~ Catalog ~ products:", products.products, products.total);
   const [input, setInput] = useState<string>("");
 
-  const getItems = async () => {
+  const getItems = async (append = false) => {
     try {
       const response = await fetch(
-        `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${products.skip}`
+        `https://dummyjson.com/products/search?q=${input}&limit=${initialState.products.limit}&skip=${append ? products.skip : 0}`
       );
 
       if (!response.ok) throw new Error("No response from the server");
 
       const data = await response.json();
-      dispatch({ type: "dataReceived", payload: data });
+      dispatch({ type: "dataReceived", payload: data, append });
     } catch (error) {
       toast.error("Error getting products, check your connection!");
       dispatch({ type: "dataFailed", payload: {} });
@@ -61,11 +66,11 @@ export default function Catalog() {
   };
 
   useEffect(() => {
-    const getDebouncedData = setTimeout(() => {
-      getItems();
+    const timeoutId = setTimeout(() => {
+      getItems(false);
     }, 1000);
 
-    return () => clearTimeout(getDebouncedData);
+    return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
@@ -74,10 +79,10 @@ export default function Catalog() {
   }
 
   function handleLoadProducts(): void {
-    getItems();
+    getItems(true);
   }
 
-  const allProducts = products.products.length >= products.total;
+  const allProductsLoaded = products.products.length >= products.total;
 
   return (
     <div className={catalog.catalog_wrapper}>
@@ -91,32 +96,29 @@ export default function Catalog() {
           className={catalog.catalog_search}
           onChange={(e) => handleSearch(e.currentTarget.value)}
         />
-        {status === "error" && <p>No items were found ❌</p>}
-        {products?.products.length === 0 && <p>No items were found ❌</p>}
+        {status === "error" && products.products.length === 0 && (
+          <p>No items were found ❌</p>
+        )}
+        {products.products.length === 0 && <p>No items were found ❌</p>}
         {status === "loading" && <Spinner />}
         {status === "ready" && (
           <div className={catalog.catalog_grid_container}>
             <div className={catalog.catalog_grid}>
-              {products?.products.map((product, index: number) => (
+              {products.products.map((product, index: number) => (
                 <React.Fragment key={index}>
                   <ItemCard
                     title={product?.title}
                     thumbnail={product?.thumbnail}
-                    price={Math.round(
-                      product?.price -
-                        (product?.price * product?.discountPercentage) / 100
-                    )}
+                    price={product?.price}
                   />
                 </React.Fragment>
               ))}
             </div>
-            {!allProducts ? (
+            {!allProductsLoaded && (
               <DefaultButton
                 children={"Show more"}
                 onClick={handleLoadProducts}
               />
-            ) : (
-              <div style={{ marginBottom: "2rem" }}></div>
             )}
           </div>
         )}

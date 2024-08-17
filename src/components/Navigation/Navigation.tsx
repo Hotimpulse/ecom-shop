@@ -34,6 +34,7 @@ const reducer = (state: IUserCarts, action: CartAction): IUserCarts => {
 
 export default function Navigation({ mobile }: INavigation) {
   const [{ carts, status }, dispatch] = useReducer(reducer, initialState);
+  console.log("🚀 ~ Navigation ~ carts:", carts)
 
   useEffect(() => {
     const getUserCartData = async () => {

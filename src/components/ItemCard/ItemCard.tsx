@@ -38,8 +38,13 @@ export default function ItemCard({
         <div className={itemCard.card_text_overlay}>Show details</div>
       </div>
       <div className={itemCard.card_bottom_part}>
-        <div className={itemCard.card_texts} onClick={handleCardClick}>
-          {title}
+        <div className={itemCard.card_info}>
+          <div
+            className={itemCard.card_title_overflow}
+            onClick={handleCardClick}
+          >
+            {title}
+          </div>
           <span className={itemCard.card_price}>${price}</span>
         </div>
         {children ? (

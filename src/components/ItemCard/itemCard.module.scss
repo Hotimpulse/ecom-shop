@@ -57,28 +57,23 @@ img {
   flex-direction: column;
 }
 
-.card_title {
-  display: inline-block;
-  max-width: 250px;
-  font-size: 16px;
-  font-weight: 600;
-  color: $accent-color;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
 .card_price {
   font-size: 18px;
+  font-weight: 400;
   color: $accent-color;
+}
+
+.card_info {
+  display: flex;
+  flex-direction: column;
 }
 
 .card_title_overflow {
   display: inline-block;
-  max-width: 180px;
   font-size: 16px;
   font-weight: 600;
+
+  max-width: 180px;
   color: $accent-color;
   white-space: nowrap;
   overflow-x: hidden;

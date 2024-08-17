@@ -1,30 +1,25 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import Spinner from "@src/ui/Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@src/store/store";
-import { getData } from "@src/store/products/productsSlice";
+import { AppDispatch, RootState } from "@src/store/store";
 import { IProduct } from "@src/interfaces/IProducts";
+import { fetchProducts, setInput } from "@src/store/products/productsSlice";
 
 export default function Catalog() {
-  const { products, status } = useSelector(
+  const { products, status, input } = useSelector(
     (store: RootState) => store.products
   );
-  console.log("🚀 ~ REDUX ~ products:", products);
-
-  const dispatch = useDispatch();
-
-  const [input, setInput] = useState<string>("");
+  const dispatch = useDispatch<AppDispatch>();
 
   const loadItems = async (append = false) => {
     try {
-      dispatch(getData(input, append));
+      await dispatch(fetchProducts({ input, append })).unwrap();
     } catch (error) {
       toast.error("Error getting products, check your connection!");
-      dispatch({ type: "dataFailed", payload: {} });
     }
   };
 
@@ -38,7 +33,7 @@ export default function Catalog() {
   }, [input]);
 
   function handleSearch(query: string): void {
-    setInput(query);
+    dispatch(setInput(query));
   }
 
   function handleLoadProducts(): void {

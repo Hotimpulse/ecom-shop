@@ -1,3 +1,3 @@
 export interface IPlusMinusItem {
-  count?: string;
+  count?: number;
 }

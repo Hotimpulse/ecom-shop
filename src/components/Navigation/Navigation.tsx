@@ -11,7 +11,6 @@ import { fetchCart } from "@src/store/cart/cartSlice";
 
 export default function Navigation({ mobile }: INavigation) {
   const { carts, status } = useSelector((store: RootState) => store.carts);
-  console.log("🚀 ~ Navigation ~ carts:", carts)
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {

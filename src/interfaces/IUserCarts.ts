@@ -10,6 +10,8 @@ export interface ICartItem {
 }
 
 export interface ICart {
+  quantity: string | undefined;
+  title: string;
   id: number;
   products: ICartItem[];
   total: number;

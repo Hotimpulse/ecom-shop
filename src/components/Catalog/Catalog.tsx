@@ -65,6 +65,7 @@ export default function Catalog() {
               {products.products.map((product: IProduct, index: number) => (
                 <React.Fragment key={index}>
                   <ItemCard
+                    id={product?.id}
                     title={product?.title}
                     thumbnail={product?.thumbnail}
                     price={product?.price}

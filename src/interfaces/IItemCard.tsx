@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 
 export interface IItemCard {
-  children?: ReactNode;
-  id?: number;
+  id: number;
   price: number;
   title: string;
   thumbnail: string;
+  children?: ReactNode;
 }
 

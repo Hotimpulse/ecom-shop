@@ -4,3 +4,19 @@
   color: $accent-color;
   font-size: 14px;
 }
+
+.cart_plusminus_btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  & button {
+    display: flex;
+    padding: 0;
+    width: 52px;
+    height: 52px;
+    place-items: center;
+    & svg {
+      margin: 0 auto;
+    }
+  }
+}

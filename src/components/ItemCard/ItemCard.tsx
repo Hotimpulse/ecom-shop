@@ -1,18 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
 import { IItemCard } from "@src/interfaces/IItemCard";
+import { RootState } from "@src/store/store";
+import { useSelector } from "react-redux";
+import { IProduct } from "@src/interfaces/IProducts";
+import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
 
-export default function ItemCard({
-  children,
-  title,
-  price,
-  thumbnail,
-}: IItemCard) {
+export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
   const navigate = useNavigate();
 
   function handleCardClick(): void {
-    navigate("/product/1");
+    navigate(`/product/${id}`);
   }
+
+  const { carts } = useSelector((store: RootState) => store.carts);
+
+  const cartProduct = carts.carts[0]?.products.find(
+    (product: IProduct) => product.id === id
+  );
 
   return (
     <div className={itemCard.card_item}>
@@ -47,10 +52,12 @@ export default function ItemCard({
           </div>
           <span className={itemCard.card_price}>${price}</span>
         </div>
-        {children ? (
-          children
+        {cartProduct ? (
+          <div className={itemCard.card_plusminus_btn}>
+            <PlusMinusItem count={cartProduct.quantity} />
+          </div>
         ) : (
-          <button className={itemCard.card_btn}>
+          <button className={itemCard.card_btn} aria-label="add to cart button">
             <svg
               width="20"
               height="20"

@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 10px;
   max-width: 370px;
-  max-height: 366px;
+  max-height: fit-content;
   cursor: pointer;
 }
 
@@ -36,6 +36,7 @@ img {
 
 .card_img_container:hover :not(.card_text_overlay) {
   cursor: pointer;
+  background-color: $bg-color;
   filter: contrast(95%) brightness(90%);
 }
 
@@ -45,6 +46,7 @@ img {
 
 .card_bottom_part {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   margin-bottom: 6px;
   @media (max-width: $desktop-width) {
@@ -113,3 +115,4 @@ img {
   background-color: $button-disabled-color;
   cursor: not-allowed;
 }
+

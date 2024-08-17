@@ -3,57 +3,28 @@ import header from "../Header/header.module.scss";
 import CartComponent from "../Header/CartComponent";
 import useHandleAnchorClick from "@src/util/useHandleAnchorClick";
 import { INavigation } from "@src/interfaces/INavigation";
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
-
-type CartAction =
-  | { type: "dataReceived"; payload: ICartsData }
-  | { type: "dataFailed"; payload: object };
-
-const initialState: IUserCarts = {
-  carts: {
-    carts: [],
-    total: 0,
-    skip: 0,
-    limit: 0,
-  },
-  status: "loading", // 'loading', 'error', 'ready'
-};
-
-const reducer = (state: IUserCarts, action: CartAction): IUserCarts => {
-  switch (action.type) {
-    case "dataReceived":
-      return { ...state, carts: action.payload, status: "ready" };
-    case "dataFailed":
-      return { ...state, status: "error" };
-    default:
-      throw new Error("Unknown action");
-  }
-};
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@src/store/store";
+import { fetchCart } from "@src/store/cart/cartSlice";
 
 export default function Navigation({ mobile }: INavigation) {
-  const [{ carts, status }, dispatch] = useReducer(reducer, initialState);
+  const { carts, status } = useSelector((store: RootState) => store.carts);
   console.log("🚀 ~ Navigation ~ carts:", carts)
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const getUserCartData = async () => {
+    const loadCarts = async () => {
       try {
-        const response = await fetch(`https://dummyjson.com/carts/user/6`);
-
-        if (!response.ok) throw new Error("No response from the server");
-
-        response
-          .json()
-          .then((data) => dispatch({ type: "dataReceived", payload: data }));
+        await dispatch(fetchCart(6)).unwrap();
       } catch (error) {
-        toast.error("No response from the server");
-        dispatch({ type: "dataFailed", payload: {} });
+        toast.error("Error getting carts!");
       }
     };
 
-    getUserCartData();
-  }, []);
+    loadCarts();
+  }, [dispatch]);
 
   return (
     <nav className={header.navigation}>

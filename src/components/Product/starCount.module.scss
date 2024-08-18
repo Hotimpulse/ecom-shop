@@ -1,0 +1,11 @@
+.stars_container {
+  display: flex;
+  gap: 6px;
+}
+
+.star_icon {
+  transition: all 0.1s linear;
+  &:hover {
+    transform: scale(1.1);
+  }
+}

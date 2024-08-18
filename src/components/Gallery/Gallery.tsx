@@ -1,14 +1,14 @@
 import gallery from "./gallery.module.scss";
 
-export default function Gallery() {
+export default function Gallery({ image, imageArr }) {
   return (
     <div className={gallery.gallery_wrapper}>
       <div className={gallery.gallery_container}>
         <div className={gallery.img_container}>
           <picture>
             <source
-              srcSet="/src/assets/pics/gallery_shoe_pic.avif"
-              type="image/avif"
+              srcSet={image}
+              type="image/png"
               sizes="(max-width: 320px) 300px,
  (min-width: 650px) 520px,
   (min-width: 650px) 520px,
@@ -18,23 +18,23 @@ export default function Gallery() {
               loading="lazy"
               decoding="async"
               className={gallery.main_img}
-              src="/src/assets/pics/gallery_shoe_pic.avif"
+              src={image}
               alt="picture of the product"
             />
           </picture>
           <div className={gallery.small_imgs}>
-            {Array.from({ length: 6 }).map((_, index) => (
+            {imageArr.map((image: string, index: number) => (
               <picture key={index}>
                 <source
-                  srcSet="/src/assets/pics/gallery_shoe_pic.avif"
-                  type="image/avif"
+                  srcSet={imageArr[index]}
+                  type="image/png"
                   sizes="(min-width: 320px) 70px"
                 />
                 <img
                   loading="lazy"
                   decoding="async"
                   className={gallery.small_img}
-                  src="/src/assets/pics/gallery_shoe_pic.avif"
+                  src={imageArr[index]}
                   alt="picture of the product"
                 />
               </picture>

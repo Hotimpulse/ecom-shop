@@ -24,6 +24,6 @@
 }
 
 .btn_default:disabled {
-  background-color: #f8afaf;
+  background-color: $button-disabled-color;
   cursor: not-allowed;
 }

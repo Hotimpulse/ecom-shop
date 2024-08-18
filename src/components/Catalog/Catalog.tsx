@@ -7,7 +7,8 @@ import Spinner from "@src/ui/Spinner/Spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@src/store/store";
 import { IProduct } from "@src/interfaces/IProducts";
-import { fetchProducts, setInput } from "@src/store/products/productsSlice";
+import { fetchProducts } from "@src/store/products/productsSlice";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Catalog() {
   const { products, status, input } = useSelector(
@@ -33,10 +34,6 @@ export default function Catalog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
-  function handleSearch(query: string): void {
-    dispatch(setInput(query));
-  }
-
   function handleLoadProducts(): void {
     loadItems(true);
   }
@@ -49,12 +46,7 @@ export default function Catalog() {
         <a href="#catalog" className={catalog.catalog_header}>
           <span>Catalog</span>
         </a>
-        <input
-          type="text"
-          placeholder="Search by title"
-          className={catalog.catalog_search}
-          onChange={(e) => handleSearch(e.currentTarget.value)}
-        />
+        <SearchBar />
         {status === "error" && products.products.length === 0 && (
           <p>No items were found ❌</p>
         )}

@@ -24,22 +24,23 @@ export default function Gallery({ image, imageArr }: IGallery) {
             />
           </picture>
           <div className={gallery.small_imgs}>
-            {imageArr.map((image: string, index: number) => (
-              <picture key={index}>
-                <source
-                  srcSet={imageArr[index]}
-                  type="image/png"
-                  sizes="(min-width: 320px) 70px"
-                />
-                <img
-                  loading="lazy"
-                  decoding="async"
-                  className={gallery.small_img}
-                  src={imageArr[index]}
-                  alt="picture of the product"
-                />
-              </picture>
-            ))}
+            {imageArr &&
+              imageArr.map((image: string, index: number) => (
+                <picture key={index} className={gallery.pic_container}>
+                  <source
+                    srcSet={imageArr[index]}
+                    type="image/png"
+                    sizes="(min-width: 320px) 70px"
+                  />
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    className={gallery.small_img}
+                    src={imageArr[index]}
+                    alt="picture of the product"
+                  />
+                </picture>
+              ))}
           </div>
         </div>
       </div>

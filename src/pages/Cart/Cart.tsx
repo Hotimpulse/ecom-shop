@@ -19,28 +19,33 @@ export default function Cart() {
         <div className={cart.cart_main_container}>
           <div className={cart.cart_items_container}>
             <div className={cart.cart_contents}>
-              {carts.carts[0].products.map((item: ICartItem, index: number) => {
-                return (
-                  <CartItems
-                    key={index}
-                    price={Number(
-                      (item.discountedTotal / item.quantity).toFixed(2)
-                    )}
-                    title={item.title}
-                    thumbnail={item.thumbnail}
-                    id={item.id}
-                  >
-                    <div className={cartItems.cart_right_container}>
-                      <div className={cartItems.cart_btn_container}>
-                        <PlusMinusItem count={item.quantity} />
+              {carts?.carts[0]?.products.map(
+                (item: ICartItem, index: number) => {
+                  return (
+                    <CartItems
+                      key={index}
+                      price={Number(
+                        (
+                          item.price -
+                          (item.price * (item.discountPercentage ?? 0)) / 100
+                        ).toFixed(2)
+                      )}
+                      title={item.title}
+                      thumbnail={item.thumbnail}
+                      id={item.id}
+                    >
+                      <div className={cartItems.cart_right_container}>
+                        <div className={cartItems.cart_btn_container}>
+                          <PlusMinusItem count={item.quantity} />
+                        </div>
+                        <span className={cartItems.cart_item_del_text}>
+                          Delete
+                        </span>
                       </div>
-                      <span className={cartItems.cart_item_del_text}>
-                        Delete
-                      </span>
-                    </div>
-                  </CartItems>
-                );
-              })}
+                    </CartItems>
+                  );
+                }
+              )}
             </div>
           </div>
           <CartInfo

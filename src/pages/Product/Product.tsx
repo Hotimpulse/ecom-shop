@@ -8,12 +8,14 @@ import { useEffect } from "react";
 import { fetchProductInfo } from "@src/store/product/productSlice";
 import Spinner from "@src/ui/Spinner/Spinner";
 import StarCount from "@src/components/Product/StarCount";
+import { ICartItem } from "@src/interfaces/IUserCarts";
 
 export default function Product() {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { status } = useSelector((store: RootState) => store.product);
   const product = useSelector((store: RootState) => store.product);
+  const { carts } = useSelector((store: RootState) => store.carts.carts);
 
   useEffect(() => {
     if (id) {
@@ -25,6 +27,10 @@ export default function Product() {
     product.price -
     (product.price * product.discountPercentage) / 100
   ).toFixed(2);
+
+  const cartProduct = carts[0]?.products.find(
+    (item: ICartItem) => item.id === Number(id)
+  );
 
   return (
     <div className={product_styles.product_wrapper}>
@@ -39,7 +45,6 @@ export default function Product() {
               </h2>
               <div className={product_styles.product_info_stats_wrapper}>
                 <span className={product_styles.product_info_ratings}>
-                  {product.rating && Math.round(product.rating)}
                   <StarCount
                     productRating={product.rating && Math.round(product.rating)}
                   />
@@ -67,9 +72,11 @@ export default function Product() {
                 </span>
               </div>
               <DiscountedPricePurchase
-                newprice={`${`$`}` + priceAfterDiscount}
-                oldprice={`${`$`}` + product.price}
+                newprice={`$${priceAfterDiscount}`}
+                oldprice={`$${product.price}`}
                 discount={product.discountPercentage}
+                inCartCheck={!!cartProduct}
+                itemCount={cartProduct?.quantity || 0}
               />
             </div>
           </>

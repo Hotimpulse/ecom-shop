@@ -1,11 +1,14 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import discountedPricePurchase from "./discountedPricePurchase.module.scss";
 import { IDiscountedPricePurchase } from "@src/interfaces/IDiscountedPricePurchase";
+import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
 
 export default function DiscountedPricePurchase({
   newprice,
   oldprice,
   discount,
+  inCartCheck,
+  itemCount,
 }: IDiscountedPricePurchase) {
   return (
     <div className={discountedPricePurchase.price_wrapper}>
@@ -23,7 +26,11 @@ export default function DiscountedPricePurchase({
             </span>
           </p>
         </div>
-        <DefaultButton>Add to cart</DefaultButton>
+        {inCartCheck ? (
+          <PlusMinusItem count={itemCount} />
+        ) : (
+          <DefaultButton>Add to cart</DefaultButton>
+        )}
       </div>
     </div>
   );

@@ -3,8 +3,8 @@ import itemCard from "./itemCard.module.scss";
 import { IItemCard } from "@src/interfaces/IItemCard";
 import { RootState } from "@src/store/store";
 import { useSelector } from "react-redux";
-import { IProduct } from "@src/interfaces/IProducts";
 import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
+import { ICartItem } from "@src/interfaces/IUserCarts";
 
 export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
   const { carts } = useSelector((store: RootState) => store.carts);
 
   const cartProduct = carts.carts[0]?.products.find(
-    (product: IProduct) => product.id === id
+    (product: ICartItem) => product.id === id
   );
 
   return (

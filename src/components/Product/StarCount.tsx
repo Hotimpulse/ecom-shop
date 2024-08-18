@@ -20,7 +20,7 @@ export default function StarCount({ productRating }: IStarCount) {
         const fillColor =
           index < (tempRating ?? rating) ? FILLED_COLOR : DEFAULT_COLOR;
         return (
-          <svg
+          <svg key={index}
             onClick={() => handleClick(index + 1)}
             onMouseEnter={() => setTempRating(index + 1)}
             onMouseLeave={() => setTempRating(null)}

@@ -1,4 +1,4 @@
 export interface IGallery {
   image: string;
-  imageArr: [] | undefined;
+  imageArr: string[];
 }

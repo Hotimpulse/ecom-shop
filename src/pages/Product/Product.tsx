@@ -13,9 +13,11 @@ import { ICartItem } from "@src/interfaces/IUserCarts";
 export default function Product() {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
-  const { status } = useSelector((store: RootState) => store.product);
   const product = useSelector((store: RootState) => store.product);
   const { carts } = useSelector((store: RootState) => store.carts.carts);
+  const { status, thumbnail, images } = useSelector(
+    (store: RootState) => store.product
+  );
 
   useEffect(() => {
     if (id) {
@@ -38,7 +40,10 @@ export default function Product() {
         {status === "loading" && <Spinner />}
         {status === "ready" && (
           <>
-            <Gallery image={product.thumbnail} imageArr={product.images} />
+            <Gallery
+              image={thumbnail}
+              imageArr={images && images.length > 1 ? images : []}
+            />
             <div className={product_styles.product_info_wrapper}>
               <h2 className={product_styles.product_info_title}>
                 {product.title}

@@ -1,6 +1,7 @@
+import { IGallery } from "@src/interfaces/IGallery";
 import gallery from "./gallery.module.scss";
 
-export default function Gallery({ image, imageArr }) {
+export default function Gallery({ image, imageArr }: IGallery) {
   return (
     <div className={gallery.gallery_wrapper}>
       <div className={gallery.gallery_container}>

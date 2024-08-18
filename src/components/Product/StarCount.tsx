@@ -1,13 +1,10 @@
 import { useState } from "react";
 import star from "./starCount.module.scss";
+import { IStarCount } from "@src/interfaces/IStarCount";
 
 const DEFAULT_COLOR = "#D5D5D5";
 const FILLED_COLOR = "#F14F4F";
 const STAR_COUNT = 5;
-
-interface IStarCount {
-  productRating: number | undefined;
-}
 
 export default function StarCount({ productRating }: IStarCount) {
   const [rating, setRating] = useState<number>(productRating || 5);

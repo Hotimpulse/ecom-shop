@@ -12,11 +12,12 @@ import { fetchCart } from "@src/store/cart/cartSlice";
 export default function Navigation({ mobile }: INavigation) {
   const { carts, status } = useSelector((store: RootState) => store.carts);
   const dispatch = useDispatch<AppDispatch>();
+  const userId = 6;
 
   useEffect(() => {
     const loadCarts = async () => {
       try {
-        await dispatch(fetchCart(6)).unwrap();
+        await dispatch(fetchCart(userId)).unwrap();
       } catch (error) {
         toast.error("Error getting carts!");
       }
@@ -54,8 +55,10 @@ export default function Navigation({ mobile }: INavigation) {
           <NavLink to="/cart">
             <div className={header.cart_wrapper}>
               {status === "loading" && <CartComponent itemCount={0} />}
-              {status === "ready" && (
+              {status === "ready" && carts.carts[0] !== undefined ? (
                 <CartComponent itemCount={carts.carts[0].totalQuantity} />
+              ) : (
+                <CartComponent itemCount={0} />
               )}
               {status === "error" && <CartComponent itemCount={0} /> &&
                 toast.error("Error getting the cart contents")}

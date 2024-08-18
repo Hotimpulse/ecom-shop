@@ -1,12 +1,13 @@
 export interface ICartItem {
-  id: number;
+  id?: number;
   title: string;
   price: number;
-  quantity: number;
-  total: number;
-  discountPercentage: number;
-  discountedTotal: number;
-  thumbnail: string;
+  quantity?: number;
+  total?: number;
+  discountPercentage?: number;
+  discountedTotal?: number;
+  thumbnail?: string;
+  children?: React.ReactNode;
 }
 
 export interface ICart {
@@ -32,4 +33,3 @@ export interface IUserCarts {
   carts: ICartsData;
   status: string;
 }
-

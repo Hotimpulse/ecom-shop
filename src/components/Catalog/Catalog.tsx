@@ -20,6 +20,7 @@ export default function Catalog() {
       await dispatch(fetchProducts({ input, append })).unwrap();
     } catch (error) {
       toast.error("Error getting products, check your connection!");
+      console.error(error);
     }
   };
 

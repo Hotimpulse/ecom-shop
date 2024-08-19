@@ -2,6 +2,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import layout from "./layout.module.scss";
 
 export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
@@ -15,11 +16,9 @@ export default function Layout(): JSX.Element {
   return (
     <HelmetProvider>
       <Helmet title={`${capitalizedName}`} />
-      <div
-        style={{ display: "flex", flexDirection: "column", minHeight: "100vh", overflowX: "hidden" }}
-      >
+      <div className={layout.wrapper}>
         <Header />
-        <main style={{ flex: "1" }}>
+        <main className={layout.main}>
           <Outlet />
         </main>
         <Footer />

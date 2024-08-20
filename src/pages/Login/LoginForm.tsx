@@ -34,6 +34,7 @@ export default function LoginForm() {
       return;
     }
     navigate("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +44,6 @@ export default function LoginForm() {
     });
   };
 
-  console.log("🚀 ~ handleChange ~ formData:", formData);
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -63,11 +63,12 @@ export default function LoginForm() {
         .then((action) => {
           if (action.token) {
             localStorage.setItem("token", action.token);
+            toast.success(`Welcome, ${action.firstName}!`);
             navigate("/");
           }
         });
     } catch (error) {
-      toast.error("Error loggin in! Check your credentials!");
+      toast.error("Error logging in! Check your credentials!");
       console.error(error);
     }
   };
@@ -93,7 +94,16 @@ export default function LoginForm() {
             onChange={handleChange}
             value={formData[EFormFieldNames.password] || ""}
           />
-          <DefaultButton children={"Sign in"} type="submit"></DefaultButton>
+          <DefaultButton
+            children={"Sign in"}
+            type="submit"
+            disabled={
+              !(
+                formData[EFormFieldNames.username] !== "" &&
+                formData[EFormFieldNames.password] !== ""
+              )
+            }
+          />
         </div>
       </form>
     </div>

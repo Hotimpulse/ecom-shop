@@ -17,6 +17,8 @@
   padding: 0 130px;
   @media (max-width: $phone-width) {
     padding: 0 1rem;
+    justify-content: center;
+    align-items: center;
   }
 
   @media (min-width: $phone-width) and (max-width: $tablet-width) {
@@ -32,14 +34,25 @@
   max-width: 490px;
   max-height: 270px;
   margin-top: 115px;
+
+  button {
+    width: 220px;
+  }
+
   @media (max-width: $phone-width) {
     max-width: 320px;
-    margin-top: 45px;
+    margin: 0;
+    padding: 0 1rem;
+    justify-content: center;
+    align-items: center;
   }
   @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 5rem auto;
     max-width: 450px;
-    padding: 0 1rem;
-    margin-top: 45px;
   }
   @media (min-width: $tablet-width) {
     max-width: 520px;
@@ -54,12 +67,22 @@
   max-width: 520px;
   color: #fff;
   @media (max-width: $phone-width) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
     font-size: 30px;
     max-width: 320px;
-    margin-top: 45px;
+    margin-top: 0;
   }
   @media (min-width: $phone-width) and (max-width: $tablet-width) {
-    max-width: 520px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 400px;
+    padding: 0;
     margin-top: 45px;
   }
   @media (min-width: $tablet-width) {
@@ -75,6 +98,10 @@
   color: #fff;
   @media (max-width: $phone-width) {
     max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 }
 

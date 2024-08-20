@@ -6,7 +6,7 @@ import Spinner from "@src/ui/Spinner/Spinner";
 const LazyHome = lazy(() => import("@src/pages/Home/Home"));
 const LazyCart = lazy(() => import("@src/pages/Cart/Cart"));
 const LazyProduct = lazy(() => import("@src/pages/Product/Product"));
-const LazyLogin = lazy(() => import("@src/pages/Login/Login"));
+const LazyLogin = lazy(() => import("@src/pages/Login/LoginForm"));
 
 export const customRoutes: JSX.Element[] = [
   <Route

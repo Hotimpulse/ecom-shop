@@ -34,8 +34,7 @@ export default function LoginForm() {
       return;
     }
     navigate("/");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigate]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({

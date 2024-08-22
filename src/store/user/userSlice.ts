@@ -43,7 +43,6 @@ export const getUserInfo = createAsyncThunk(
       body: JSON.stringify({
         username: username,
         password: password,
-        expiresInMins: 30, // optional, defaults to 60
       }),
     });
 

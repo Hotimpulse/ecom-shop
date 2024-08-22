@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "@src/interfaces/IProducts";
+import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IProduct = {
   id: 0,
@@ -18,7 +19,15 @@ const initialState: IProduct = {
 export const fetchProductInfo = createAsyncThunk(
   "products/fetchProductInfo",
   async (id: number) => {
-    const response = await fetch(`https://dummyjson.com/products/${id}`);
+    const token = getAuthToken();
+
+    const response = await fetch(`https://dummyjson.com/products/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) throw new Error("Error getting item data!");
 

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
+import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IUserCarts = {
   carts: {
@@ -14,7 +15,15 @@ const initialState: IUserCarts = {
 export const fetchCart = createAsyncThunk(
   "cart/fetchCarts",
   async (userid: number) => {
-    const response = await fetch(`https://dummyjson.com/carts/user/${userid}`);
+    const token = getAuthToken();
+
+    const response = await fetch(`https://dummyjson.com/carts/user/${userid}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) throw new Error("Failed to fetch carts!");
 

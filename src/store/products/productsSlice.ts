@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProducts, IProductsData } from "@src/interfaces/IProducts";
 import { RootState } from "../store";
+import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IProducts = {
   products: {
@@ -22,10 +23,20 @@ export const fetchProducts = createAsyncThunk(
   ) => {
     const state = getState() as RootState;
     const { limit, skip } = state.products.products;
+
+    const token = getAuthToken();
+
     const response = await fetch(
       `https://dummyjson.com/products/search?q=${input}&limit=${limit}&skip=${
         append ? skip : 0
-      }`
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
 
     if (!response.ok) throw new Error("Failed to fetch products!");

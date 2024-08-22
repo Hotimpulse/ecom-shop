@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children }: IProtectedRoute) {
   useEffect(() => {
     const isAuth = localStorage.getItem("token");
 
-    if (!isAuth && status !== "Loading") {
+    if (!isAuth && status !== "Loading" && user.id === null) {
       navigate("/login");
     }
   }, [navigate, status, user]);

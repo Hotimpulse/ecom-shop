@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import getAuthToken from "@src/util/getAuthToken";
 
 export interface IUser {
   id: number | null;
@@ -40,13 +41,36 @@ export const getUserInfo = createAsyncThunk(
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        username: username, // "emilys"
-        password: password, // "emilyspass"
+        username: username,
+        password: password,
         expiresInMins: 30, // optional, defaults to 60
       }),
     });
 
     if (!response.ok) throw new Error("Failed to login!");
+
+    const data: IUser = await response.json();
+    localStorage.setItem("token", data.token);
+    return data;
+  }
+);
+
+export const fetchUserInfo = createAsyncThunk(
+  "user/fetchUserInfo",
+  async () => {
+    const token = getAuthToken();
+
+    if (!token) throw new Error("No token available!");
+
+    const response = await fetch("https://dummyjson.com/auth/users/me", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch user info!");
 
     const data: IUser = await response.json();
     return data;
@@ -56,7 +80,12 @@ export const getUserInfo = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user = initialState.user;
+      localStorage.removeItem("token");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserInfo.pending, (state) => {
@@ -68,8 +97,20 @@ const userSlice = createSlice({
       })
       .addCase(getUserInfo.rejected, (state) => {
         state.status = "error";
+      })
+      .addCase(fetchUserInfo.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchUserInfo.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = "ready";
+      })
+      .addCase(fetchUserInfo.rejected, (state) => {
+        state.status = "error";
       });
   },
 });
+
+export const { logout } = userSlice.actions;
 
 export default userSlice.reducer;

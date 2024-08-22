@@ -2,12 +2,14 @@ import "./App.css";
 import "./ui/variables.scss";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
-import store from "./store/store";
 import RouterWithRoutes from "./routing/RouterWithRoutes";
+import UserState from "./util/UserState";
+import store from "./store/store";
 
 function App() {
   return (
     <Provider store={store}>
+      <UserState />
       <RouterWithRoutes />
       <Toaster
         position="bottom-right"

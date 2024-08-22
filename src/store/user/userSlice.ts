@@ -33,8 +33,8 @@ const initialState: IUserState = {
   },
 };
 
-export const getUserInfo = createAsyncThunk(
-  "user/getUserInfo",
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async ({ username, password }: { username: string; password: string }) => {
     const response = await fetch("https://dummyjson.com/auth/login", {
@@ -69,6 +69,11 @@ export const fetchUserInfo = createAsyncThunk(
       },
     });
 
+    if (response.status === 401) {
+      localStorage.removeItem("token");
+      throw new Error("Unauthorized! Please login again.");
+    }
+
     if (!response.ok) throw new Error("Failed to fetch user info!");
 
     const data: IUser = await response.json();
@@ -87,14 +92,14 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserInfo.pending, (state) => {
+      .addCase(loginUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getUserInfo.fulfilled, (state, action) => {
+      .addCase(loginUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.status = "ready";
       })
-      .addCase(getUserInfo.rejected, (state) => {
+      .addCase(loginUser.rejected, (state) => {
         state.status = "error";
       })
       .addCase(fetchUserInfo.pending, (state) => {

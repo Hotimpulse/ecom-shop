@@ -2,7 +2,7 @@ import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import login from "./login.module.scss";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@src/store/store";
-import { getUserInfo } from "@src/store/user/userSlice";
+import { loginUser } from "@src/store/user/userSlice";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ export default function LoginForm() {
     };
 
     try {
-      await dispatch(getUserInfo(userData))
+      await dispatch(loginUser(userData))
         .unwrap()
         .then((action) => {
           if (action.token) {

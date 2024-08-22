@@ -11,8 +11,10 @@ import { fetchCart } from "@src/store/cart/cartSlice";
 
 export default function Navigation({ mobile }: INavigation) {
   const { carts, status } = useSelector((store: RootState) => store.carts);
+  const { user } = useSelector((store: RootState) => store.user);
+
   const dispatch = useDispatch<AppDispatch>();
-  const userId = 6;
+  const userId = user.id || 6;
 
   useEffect(() => {
     const loadCarts = async () => {
@@ -24,7 +26,7 @@ export default function Navigation({ mobile }: INavigation) {
     };
 
     loadCarts();
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   return (
     <nav className={header.navigation}>
@@ -67,7 +69,7 @@ export default function Navigation({ mobile }: INavigation) {
         </li>
         <li>
           <Link to="#" className={header.nav_item}>
-            Johnson Smith
+            {user.firstName + " " + user.lastName}
           </Link>
         </li>
       </ul>

@@ -19,6 +19,10 @@ export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
     (product: ICartItem) => product.id === id
   );
 
+  function handleAddToCart() {
+    
+  }
+
   return (
     <div className={itemCard.card_item}>
       <div className={itemCard.card_img_container} onClick={handleCardClick}>
@@ -57,7 +61,7 @@ export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
             <PlusMinusItem count={cartProduct.quantity} />
           </div>
         ) : (
-          <button className={itemCard.card_btn} aria-label="add to cart button">
+          <button className={itemCard.card_btn} aria-label="add to cart button" onClick={handleAddToCart}>
             <svg
               width="20"
               height="20"

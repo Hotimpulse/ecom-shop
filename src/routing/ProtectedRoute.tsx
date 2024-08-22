@@ -10,15 +10,22 @@ interface IProtectedRoute {
 
 export default function ProtectedRoute({ children }: IProtectedRoute) {
   const navigate = useNavigate();
-  const { status } = useSelector((store: RootState) => store.user);
+  const { user, status } = useSelector((store: RootState) => store.user);
 
   useEffect(() => {
     const isAuth = localStorage.getItem("token");
 
-    if (!isAuth && (status !== "Loading")) {
+    if (!isAuth && status !== "Loading") {
       navigate("/login");
     }
-  }, [navigate, status]);
+
+    if (user.firstName !== "") {
+      return;
+    } else {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  }, [navigate, status, user]);
 
   if (status === "Loading") return <Spinner />;
 

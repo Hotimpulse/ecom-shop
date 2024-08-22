@@ -23,6 +23,11 @@ export const fetchCart = createAsyncThunk(
   }
 );
 
+// export const updateCart = createAsyncThunk(
+//   "cart/updateCart",
+//   // async (payload: )
+// )
+
 const cartsSlice = createSlice({
   name: "carts",
   initialState,

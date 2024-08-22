@@ -18,13 +18,6 @@ export default function ProtectedRoute({ children }: IProtectedRoute) {
     if (!isAuth && status !== "Loading") {
       navigate("/login");
     }
-
-    if (user.firstName !== "") {
-      return;
-    } else {
-      localStorage.removeItem("token");
-      navigate("/login");
-    }
   }, [navigate, status, user]);
 
   if (status === "Loading") return <Spinner />;

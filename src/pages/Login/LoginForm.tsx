@@ -25,6 +25,7 @@ export default function LoginForm() {
   const dispatch = useDispatch<AppDispatch>();
   const ref = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState<IFormData>({});
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,6 +46,8 @@ export default function LoginForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setLoading(true);
 
     const data = new FormData(event.currentTarget);
     const dataObject: { [k: string]: FormDataEntryValue } = Object.fromEntries(
@@ -69,6 +72,8 @@ export default function LoginForm() {
     } catch (error) {
       toast.error("Error logging in! Check your credentials!");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -94,12 +99,13 @@ export default function LoginForm() {
             value={formData[EFormFieldNames.password] || ""}
           />
           <DefaultButton
-            children={"Sign in"}
+            children={loading ? "Signing in..." : "Sign in"}
             type="submit"
             disabled={
+              loading ||
               !(
-                formData[EFormFieldNames.username] !== "" &&
-                formData[EFormFieldNames.password] !== ""
+                formData[EFormFieldNames.username]?.trim() &&
+                formData[EFormFieldNames.password]?.trim()
               )
             }
           />

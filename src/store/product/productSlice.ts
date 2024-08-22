@@ -12,7 +12,7 @@ const initialState: IProduct = {
   rating: 0,
   stock: 0,
   tags: [""],
-  status: "loading",
+  status: "",
 };
 
 export const fetchProductInfo = createAsyncThunk(

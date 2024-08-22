@@ -9,7 +9,7 @@ const initialState: IProducts = {
     limit: 12,
     total: 0,
   },
-  status: "loading", // 'loading', 'error', 'ready'
+  status: "", // 'loading', 'error', 'ready'
   input: "",
   append: false,
 };

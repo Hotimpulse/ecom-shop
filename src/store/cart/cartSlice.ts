@@ -8,7 +8,7 @@ const initialState: IUserCarts = {
     skip: 0,
     limit: 0,
   },
-  status: "loading", // 'loading', 'error', 'ready'
+  status: "", // 'loading', 'error', 'ready'
 };
 
 export const fetchCart = createAsyncThunk(

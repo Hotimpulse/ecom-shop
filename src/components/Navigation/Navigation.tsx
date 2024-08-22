@@ -10,16 +10,18 @@ import { AppDispatch, RootState } from "@src/store/store";
 import { fetchCart } from "@src/store/cart/cartSlice";
 
 export default function Navigation({ mobile }: INavigation) {
-  const { carts, status } = useSelector((store: RootState) => store.carts);
   const { user } = useSelector((store: RootState) => store.user);
+  const { carts, status } = useSelector((store: RootState) => store.carts);
 
   const dispatch = useDispatch<AppDispatch>();
-  const userId = user.id || 6;
+  const userId = user.id;
 
   useEffect(() => {
     const loadCarts = async () => {
       try {
-        await dispatch(fetchCart(userId)).unwrap();
+        if (userId !== null) {
+          await dispatch(fetchCart(userId)).unwrap();
+        }
       } catch (error) {
         toast.error("Error getting carts!");
       }
@@ -56,13 +58,12 @@ export default function Navigation({ mobile }: INavigation) {
         <li>
           <NavLink to="/cart">
             <div className={header.cart_wrapper}>
-              {status === "loading" && <CartComponent itemCount={0} />}
-              {status === "ready" && carts.carts[0] !== undefined ? (
+              {status === "ready" && carts.carts.length !== 0 ? (
                 <CartComponent itemCount={carts.carts[0].totalQuantity} />
               ) : (
                 <CartComponent itemCount={0} />
               )}
-              {status === "error" && <CartComponent itemCount={0} /> &&
+              {status === "error" &&
                 toast.error("Error getting the cart contents")}
             </div>
           </NavLink>

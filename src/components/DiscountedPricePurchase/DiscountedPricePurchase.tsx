@@ -8,31 +8,23 @@ import { addItem } from "@src/store/cart/cartSlice";
 export default function DiscountedPricePurchase({
   newprice,
   oldprice,
-  discount,
   inCartCheck,
   itemCount,
-  id,
-  title,
-  price,
-  quantity,
-  total,
-  discountPercentage,
   discountedTotal,
-  thumbnail,
-  totalStock,
+  product,
 }: IDiscountedPricePurchase) {
   const dispatch = useDispatch();
 
   function handleAddToCart(): void {
     const newItem = {
-      id: id,
-      title: title,
-      price: price,
-      quantity: quantity,
-      total: total,
-      discountPercentage: discountPercentage,
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: itemCount,
+      total: product.stock,
+      discountPercentage: product.discountPercentage,
       discountedTotal: discountedTotal,
-      thumbnail: thumbnail,
+      thumbnail: product.thumbnail,
     };
     dispatch(addItem(newItem));
   }
@@ -49,15 +41,15 @@ export default function DiscountedPricePurchase({
           <p className={discountedPricePurchase.discount}>
             {`Your discount:`}
             <span className={discountedPricePurchase.discount_number}>
-              {discount}%
+              {product.discountPercentage}%
             </span>
           </p>
         </div>
         {inCartCheck ? (
           <PlusMinusItem
             count={itemCount}
-            id={id || 0}
-            totalStock={totalStock}
+            id={product.id || 0}
+            totalStock={product.stock}
           />
         ) : (
           <DefaultButton

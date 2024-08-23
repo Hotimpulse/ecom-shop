@@ -23,7 +23,7 @@
   }
   @media (width < 1200px) {
     max-width: 400px;
-    max-height: 400px;
+    max-height: fit-content;
   }
 }
 

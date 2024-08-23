@@ -55,7 +55,8 @@
   border-radius: 4px;
   padding: 20px 40px;
   max-width: 776px;
-  height: 566px;
+  height: fit-content;
+  margin-bottom: 5rem;
 
   @media (max-width: $phone-width) {
     padding: 0;

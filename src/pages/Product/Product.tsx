@@ -14,10 +14,10 @@ export default function Product() {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const product = useSelector((store: RootState) => store.product);
-  const { carts } = useSelector((store: RootState) => store.carts.carts);
   const { status, thumbnail, images } = useSelector(
     (store: RootState) => store.product
   );
+  const { carts } = useSelector((store: RootState) => store.carts.carts);
 
   useEffect(() => {
     if (id) {
@@ -25,7 +25,7 @@ export default function Product() {
     }
   }, [id, dispatch]);
 
-  const priceAfterDiscount = (
+  const priceAfterDiscount = +(
     product.price -
     (product.price * product.discountPercentage) / 100
   ).toFixed(2);
@@ -33,7 +33,6 @@ export default function Product() {
   const cartProduct = carts[0]?.products.find(
     (item: ICartItem) => item.id === Number(id)
   );
-  console.log("🚀 ~ Product ~ cartProduct:", cartProduct)
 
   return (
     <div className={product_styles.product_wrapper}>
@@ -80,17 +79,10 @@ export default function Product() {
               <DiscountedPricePurchase
                 newprice={`$${priceAfterDiscount}`}
                 oldprice={`$${product.price}`}
-                discount={product.discountPercentage}
                 inCartCheck={!!cartProduct}
                 itemCount={cartProduct?.quantity || 0}
-                total={product.stock}
-                id={Number(id)}
-                title={product.title}
-                price={product.price}
-                quantity={product.minimumOrderQuantity}
-                discountPercentage={product.discountPercentage}
-                thumbnail={product.thumbnail}
-                totalStock={product.stock}
+                product={product}
+                discountedTotal={priceAfterDiscount}
               />
             </div>
           </>

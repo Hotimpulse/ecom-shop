@@ -27,7 +27,7 @@ export const fetchProducts = createAsyncThunk(
     const token = getAuthToken();
 
     const response = await fetch(
-      `https://dummyjson.com/products/search?q=${input}&limit=${limit}&skip=${
+      `https://dummyjson.com/auth/products/search?q=${input}&limit=${limit}&skip=${
         append ? skip : 0
       }`,
       {

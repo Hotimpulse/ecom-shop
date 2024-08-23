@@ -28,17 +28,50 @@ export const fetchCart = createAsyncThunk(
   async (userid: number) => {
     const token = getAuthToken();
 
-    const response = await fetch(`https://dummyjson.com/carts/user/${userid}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `https://dummyjson.com/auth/carts/user/${userid}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) throw new Error("Failed to fetch carts!");
 
     const data: ICartsData = await response.json();
+    return data;
+  }
+);
+
+export const updateCart = createAsyncThunk(
+  "cart/updateCart",
+  async (updatedCart: {
+    cartId: number;
+    products: { id: number; quantity: number }[];
+  }) => {
+    const token = getAuthToken();
+
+    const response = await fetch(
+      `'https://dummyjson.com/auth/carts/${updatedCart.cartId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          merge: false,
+          products: updatedCart.products,
+        }),
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to update the cart!");
+
+    const data = await response.json();
     return data;
   }
 );
@@ -106,6 +139,16 @@ const cartsSlice = createSlice({
       })
       .addCase(fetchCart.rejected, (state) => {
         state.status = "error";
+      })
+      .addCase(updateCart.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        state.carts.carts[0] = action.payload;
+        refreshCartState(state);
+      })
+      .addCase(updateCart.rejected, (state) => {
+        state.status = "error";
       });
   },
 });
@@ -133,4 +176,5 @@ export const {
   decreaseQuantity,
   clearCart,
 } = cartsSlice.actions;
+
 export default cartsSlice.reducer;

@@ -21,7 +21,7 @@ export const fetchProductInfo = createAsyncThunk(
   async (id: number) => {
     const token = getAuthToken();
 
-    const response = await fetch(`https://dummyjson.com/products/${id}`, {
+    const response = await fetch(`https://dummyjson.com/auth/products/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

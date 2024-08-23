@@ -21,6 +21,7 @@
 .catalog_container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 48px;
   width: 100%;
   margin-top: 48px;
@@ -28,6 +29,8 @@
 }
 
 .catalog_search {
+  width: 100%;
+  max-width: calc(1200px - 10px);
   height: 62px;
   padding: 0 20px;
   color: $accent-color;
@@ -73,6 +76,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px 35px;
+  max-width: 1180px;
+  width: 100%;
   @media (max-width: $phone-width) {
     display: flex;
     flex-direction: column;
@@ -91,6 +96,8 @@
   justify-content: center;
   align-items: center;
   gap: 48px;
+  max-width: 1180px;
+  width: 100%;
 }
 
 .catalog_grid_item {

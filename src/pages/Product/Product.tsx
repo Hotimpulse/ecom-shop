@@ -82,6 +82,14 @@ export default function Product() {
                 discount={product.discountPercentage}
                 inCartCheck={!!cartProduct}
                 itemCount={cartProduct?.quantity || 0}
+                total={product.stock}
+                id={Number(id)}
+                title={product.title}
+                price={product.price}
+                quantity={product.minimumOrderQuantity}
+                discountPercentage={product.discountPercentage}
+                thumbnail={product.thumbnail}
+                totalStock={product.stock}
               />
             </div>
           </>

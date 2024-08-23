@@ -25,10 +25,6 @@ export default function Catalog() {
     }
   };
 
-  fetch('https://dummyjson.com/carts/1')
-.then(res => res.json())
-.then(console.log);
-
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       loadItems(false);

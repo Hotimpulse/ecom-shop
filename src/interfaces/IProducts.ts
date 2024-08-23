@@ -7,8 +7,8 @@ export interface IProduct {
   description?: string;
   category?: string;
   rating?: number;
-  stock?: number;
-  tags?: [''];
+  stock: number;
+  tags?: [""];
   brand?: string;
   sku?: string;
   weight?: 2;

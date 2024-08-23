@@ -1,10 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
+import { ICartItem, ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
 import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IUserCarts = {
   carts: {
-    carts: [],
+    carts: [
+      {
+        id: 0,
+        products: [],
+        total: 0,
+        discountedTotal: 0,
+        userId: 0,
+        totalProducts: 0,
+        totalQuantity: 0,
+      },
+    ],
     total: 0,
     skip: 0,
     limit: 0,
@@ -32,15 +42,54 @@ export const fetchCart = createAsyncThunk(
   }
 );
 
-// export const updateCart = createAsyncThunk(
-//   "cart/updateCart",
-//   // async (payload: )
-// )
-
 const cartsSlice = createSlice({
   name: "carts",
   initialState,
-  reducers: {},
+  reducers: {
+    addItem(state, action) {
+      // payload = newItem
+      if (state.carts.carts.length > 0) {
+        state.carts.carts[0].products.push(action.payload);
+      }
+    },
+    deleteItem(state, action) {
+      // payload = productId
+      if (state.carts.carts.length > 0) {
+        state.carts.carts[0].products = state.carts.carts[0].products.filter(
+          (item) => item.id !== action.payload
+        );
+      }
+    },
+    increaseQuantity(state, action) {
+      if (state.carts.carts.length > 0) {
+        const item = state.carts.carts[0].products.find(
+          (item: ICartItem) => item.id === action.payload
+        );
+        if (item) {
+          item.quantity += 1;
+          item.total = item.quantity * item.price;
+          item.discountedTotal =
+            item.total - (item.total * item.discountPercentage) / 100;
+        }
+      }
+    },
+    decreaseQuantity(state, action) {
+      if (state.carts.carts.length > 0) {
+        const item = state.carts.carts[0].products.find(
+          (item) => item.id === action.payload
+        );
+        if (item && item.quantity > 1) {
+          item.quantity -= 1;
+          item.total = item.quantity * item.price;
+          item.discountedTotal =
+            item.total - (item.total * item.discountPercentage) / 100;
+        }
+      }
+    },
+    clearCart(state) {
+      state.carts.carts = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCart.pending, (state) => {
@@ -56,4 +105,11 @@ const cartsSlice = createSlice({
   },
 });
 
+export const {
+  addItem,
+  deleteItem,
+  increaseQuantity,
+  decreaseQuantity,
+  clearCart,
+} = cartsSlice.actions;
 export default cartsSlice.reducer;

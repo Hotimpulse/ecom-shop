@@ -31,7 +31,7 @@ export const fetchProductInfo = createAsyncThunk(
 
     if (!response.ok) throw new Error("Error getting item data!");
 
-    const data = await response.json();
+    const data: IProduct = await response.json();
     return data;
   }
 );

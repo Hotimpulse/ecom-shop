@@ -1,8 +1,8 @@
 export interface ICartItem {
-  id?: number;
+  id: number;
   title: string;
   price: number;
-  quantity?: number;
+  quantity: number;
   total?: number;
   discountPercentage?: number;
   discountedTotal?: number;
@@ -11,8 +11,6 @@ export interface ICartItem {
 }
 
 export interface ICart {
-  quantity: string | undefined;
-  title: string;
   id: number;
   products: ICartItem[];
   total: number;

@@ -2,6 +2,8 @@ import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import discountedPricePurchase from "./discountedPricePurchase.module.scss";
 import { IDiscountedPricePurchase } from "@src/interfaces/IDiscountedPricePurchase";
 import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
+import { useDispatch } from "react-redux";
+import { addItem } from "@src/store/cart/cartSlice";
 
 export default function DiscountedPricePurchase({
   newprice,
@@ -9,7 +11,32 @@ export default function DiscountedPricePurchase({
   discount,
   inCartCheck,
   itemCount,
+  id,
+  title,
+  price,
+  quantity,
+  total,
+  discountPercentage,
+  discountedTotal,
+  thumbnail,
+  totalStock
 }: IDiscountedPricePurchase) {
+  const dispatch = useDispatch();
+
+  function handleAddToCart(): void {
+    const newItem = {
+      id: id,
+      title: title,
+      price: price,
+      quantity: quantity,
+      total: total,
+      discountPercentage: discountPercentage,
+      discountedTotal: discountedTotal,
+      thumbnail: thumbnail,
+    };
+    dispatch(addItem(newItem));
+  }
+
   return (
     <div className={discountedPricePurchase.price_wrapper}>
       <div className={discountedPricePurchase.price_container}>
@@ -27,9 +54,9 @@ export default function DiscountedPricePurchase({
           </p>
         </div>
         {inCartCheck ? (
-          <PlusMinusItem count={itemCount} />
+          <PlusMinusItem count={itemCount} id={id} totalStock={totalStock} />
         ) : (
-          <DefaultButton>Add to cart</DefaultButton>
+          <DefaultButton onClick={handleAddToCart} type={"button"} disabled={false} ariaLabel={"Add to cart button"}>Add to cart</DefaultButton>
         )}
       </div>
     </div>

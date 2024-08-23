@@ -19,7 +19,7 @@ export default function DiscountedPricePurchase({
   discountPercentage,
   discountedTotal,
   thumbnail,
-  totalStock
+  totalStock,
 }: IDiscountedPricePurchase) {
   const dispatch = useDispatch();
 
@@ -54,9 +54,20 @@ export default function DiscountedPricePurchase({
           </p>
         </div>
         {inCartCheck ? (
-          <PlusMinusItem count={itemCount} id={id} totalStock={totalStock} />
+          <PlusMinusItem
+            count={itemCount}
+            id={id || 0}
+            totalStock={totalStock}
+          />
         ) : (
-          <DefaultButton onClick={handleAddToCart} type={"button"} disabled={false} ariaLabel={"Add to cart button"}>Add to cart</DefaultButton>
+          <DefaultButton
+            onClick={handleAddToCart}
+            type={"button"}
+            disabled={false}
+            ariaLabel={"Add to cart button"}
+          >
+            Add to cart
+          </DefaultButton>
         )}
       </div>
     </div>

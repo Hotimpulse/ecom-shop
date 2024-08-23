@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ICartItem, ICartsData, IUserCarts } from "@src/interfaces/IUserCarts";
 import getAuthToken from "@src/util/getAuthToken";
+import { WritableDraft } from "immer";
 
 const initialState: IUserCarts = {
   carts: {
@@ -70,6 +71,7 @@ const cartsSlice = createSlice({
           item.total = item.quantity * item.price;
           item.discountedTotal =
             item.total - (item.total * item.discountPercentage) / 100;
+          refreshCartState(state);
         }
       }
     },
@@ -83,6 +85,7 @@ const cartsSlice = createSlice({
           item.total = item.quantity * item.price;
           item.discountedTotal =
             item.total - (item.total * item.discountPercentage) / 100;
+          refreshCartState(state);
         }
       }
     },
@@ -104,6 +107,17 @@ const cartsSlice = createSlice({
       });
   },
 });
+
+function refreshCartState(state: WritableDraft<IUserCarts>) {
+  if (state.carts.carts.length > 0) {
+    const cart = state.carts.carts[0];
+    cart.totalQuantity = cart.products.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+    cart.totalProducts = cart.products.length;
+  }
+}
 
 export const {
   addItem,

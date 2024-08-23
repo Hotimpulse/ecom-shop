@@ -15,7 +15,7 @@ export default function Cart() {
   const { carts, status } = useSelector((store: RootState) => store.carts);
   const dispatch = useDispatch<AppDispatch>();
   const [stockInfo, setStockInfo] = useState<{ [key: number]: number }>({});
-
+  
   useEffect(() => {
     const fetchStock = async (id: number) => {
       try {
@@ -60,7 +60,8 @@ export default function Cart() {
                       title={item.title}
                       thumbnail={item.thumbnail}
                       id={item.id}
-                      quantity={0}
+                      quantity={item.quantity}
+                      discountPercentage={item.discountPercentage}
                     >
                       <div className={cartItems.cart_right_container}>
                         <div className={cartItems.cart_btn_container}>

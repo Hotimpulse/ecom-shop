@@ -4,7 +4,7 @@ export interface ICartItem {
   price: number;
   quantity: number;
   total?: number;
-  discountPercentage?: number;
+  discountPercentage: number;
   discountedTotal?: number;
   thumbnail?: string;
   children?: React.ReactNode;

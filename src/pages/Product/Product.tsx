@@ -33,6 +33,7 @@ export default function Product() {
   const cartProduct = carts[0]?.products.find(
     (item: ICartItem) => item.id === Number(id)
   );
+  console.log("🚀 ~ Product ~ cartProduct:", cartProduct)
 
   return (
     <div className={product_styles.product_wrapper}>

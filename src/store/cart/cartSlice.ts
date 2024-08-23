@@ -51,6 +51,7 @@ const cartsSlice = createSlice({
       // payload = newItem
       if (state.carts.carts.length > 0) {
         state.carts.carts[0].products.push(action.payload);
+        refreshCartState(state);
       }
     },
     deleteItem(state, action) {
@@ -59,6 +60,7 @@ const cartsSlice = createSlice({
         state.carts.carts[0].products = state.carts.carts[0].products.filter(
           (item) => item.id !== action.payload
         );
+        refreshCartState(state);
       }
     },
     increaseQuantity(state, action) {
@@ -116,6 +118,11 @@ function refreshCartState(state: WritableDraft<IUserCarts>) {
       0
     );
     cart.totalProducts = cart.products.length;
+    cart.total = cart.products.reduce((acc, item) => acc + item.total, 0);
+    cart.discountedTotal = cart.products.reduce(
+      (acc, item) => acc + item.discountedTotal,
+      0
+    );
   }
 }
 

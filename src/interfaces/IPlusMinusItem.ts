@@ -3,4 +3,5 @@ export interface IPlusMinusItem {
   id: number;
   totalStock: number;
   handleDeleteItem?: () => void;
+  lastProductDisable?: boolean;
 }

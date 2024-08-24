@@ -62,7 +62,13 @@ export default function Cart() {
       {status === "loading" && <Spinner />}
       {status === "ready" && carts[0] !== undefined && (
         <div className={cart.cart_main_container}>
-          <div className={cart.cart_items_container}>
+          <div
+            className={
+              carts[0].products.length === 0
+                ? cart.cart_items_empty
+                : cart.cart_items_container
+            }
+          >
             <div className={cart.cart_contents}>
               {carts[0]?.products.map((item: ICartItem, index: number) => {
                 const totalStock = stockInfo[item.id] || 0;
@@ -130,18 +136,21 @@ export default function Cart() {
               )}
             </div>
           </div>
-          <CartInfo
-            totalCount={carts[0]?.totalQuantity}
-            totalPriceNoDiscount={parseFloat(carts[0]?.total.toFixed(2))}
-            totalDiscountPrice={parseFloat(
-              carts[0]?.discountedTotal.toFixed(2)
-            )}
-          />
+          {carts[0].products.length !== 0 && (
+            <CartInfo
+              totalCount={carts[0]?.totalQuantity}
+              totalPriceNoDiscount={parseFloat(carts[0]?.total.toFixed(2))}
+              totalDiscountPrice={parseFloat(
+                carts[0]?.discountedTotal.toFixed(2)
+              )}
+            />
+          )}
         </div>
       )}
 
       {((status === "ready" && carts[0] === undefined) ||
-        status === "error") && (
+        status === "error" ||
+        carts[0].products.length === 0) && (
         <div className={cart.cart_main_container}>
           <p className={cart.cart_no_items_text}>No items</p>
         </div>

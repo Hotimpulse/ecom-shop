@@ -49,6 +49,30 @@
   }
 }
 
+.cart_items_empty {
+  display: flex;
+  // border: 1px solid $border-grey;
+  // border-radius: 4px;
+  // padding: 20px 40px;
+  width: 776px;
+
+  @media (max-width: $phone-width) {
+    padding: 0;
+    max-width: 300px;
+    height: fit-content;
+    place-items: center;
+  }
+
+  @media ((min-width: $phone-width) and (max-width: $tablet-width)) {
+    padding: 0;
+  }
+
+  @media (width < 1200px) {
+    max-width: fit-content;
+    height: fit-content;
+  }
+}
+
 .cart_items_container {
   display: flex;
   border: 1px solid $border-grey;

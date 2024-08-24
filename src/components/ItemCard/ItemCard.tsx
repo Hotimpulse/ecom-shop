@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "@src/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
 import { ICartItem } from "@src/interfaces/IUserCarts";
-import { addItem } from "@src/store/cart/cartSlice";
+import { addItem, deleteItem } from "@src/store/cart/cartSlice";
 import AddToCart from "./AddToCart";
 
 export default function ItemCard({
@@ -17,7 +17,7 @@ export default function ItemCard({
 }: IItemCard) {
   const navigate = useNavigate();
 
-  function handleCardClick(): void {
+  function handleCardClick() {
     navigate(`/product/${id}`);
   }
 
@@ -30,6 +30,10 @@ export default function ItemCard({
 
   function handleAddToCart() {
     dispatch(addItem({ id, title, price, thumbnail, quantity: 1 }));
+  }
+
+  function clearItemFromCart() {
+    dispatch(deleteItem(id));
   }
 
   return (
@@ -71,6 +75,7 @@ export default function ItemCard({
               count={cartProduct.quantity}
               id={cartProduct.id}
               totalStock={totalStock}
+              handleDeleteItem={() => clearItemFromCart()}
             />
           </div>
         ) : (

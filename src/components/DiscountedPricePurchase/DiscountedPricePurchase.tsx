@@ -50,6 +50,7 @@ export default function DiscountedPricePurchase({
             count={itemCount}
             id={product.id || 0}
             totalStock={product.stock}
+            lastProductDisable={itemCount === 1 ? true : false}
           />
         ) : (
           <DefaultButton

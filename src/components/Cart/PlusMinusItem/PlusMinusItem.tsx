@@ -7,7 +7,8 @@ export default function PlusMinusItem({
   count,
   id,
   totalStock,
-  handleDeleteItem
+  handleDeleteItem,
+  lastProductDisable
 }: IPlusMinusItem) {
   const { handleIncreaseQuantity, handleDecreaseQuantity, isUpdating } =
     useDebouncedCartUpdate(id);
@@ -18,7 +19,7 @@ export default function PlusMinusItem({
         <DefaultButton
           ariaLabel="Decrease quantity button"
           onClick={count === 1 ? handleDeleteItem : handleDecreaseQuantity}
-          disabled={isUpdating}
+          disabled={isUpdating || (!!lastProductDisable)}
           type={"button"}
         >
           <svg

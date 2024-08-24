@@ -25,10 +25,12 @@ export default function Product() {
     }
   }, [id, dispatch]);
 
-  const priceAfterDiscount = +(
-    product.price -
-    (product.price * product.discountPercentage) / 100
-  ).toFixed(2);
+  const priceAfterDiscount = parseFloat(
+    (
+      product.price -
+      (product.price * product.discountPercentage) / 100
+    ).toFixed(2)
+  );
 
   const cartProduct = carts[0]?.products.find(
     (item: ICartItem) => item.id === Number(id)
@@ -80,7 +82,7 @@ export default function Product() {
                 newprice={`$${priceAfterDiscount}`}
                 oldprice={`$${product.price}`}
                 inCartCheck={!!cartProduct}
-                itemCount={cartProduct?.quantity || 0}
+                itemCount={cartProduct?.quantity || 1}
                 product={product}
                 discountedTotal={priceAfterDiscount}
               />

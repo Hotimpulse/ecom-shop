@@ -49,7 +49,7 @@ export default function Catalog() {
         <SearchBar />
         {status === "error" ||
           (products.products.length === 0 && (
-            <p>Looking for items... 🔎 Where are they? 🤔 </p>
+            <p>Looking for items... 🔎 Where are they? 👀 </p>
           ))}
         {status === "loading" && <Spinner />}
         {status === "ready" && (
@@ -58,10 +58,10 @@ export default function Catalog() {
               {products.products.map((product: IProduct, index: number) => (
                 <React.Fragment key={index}>
                   <ItemCard
-                    id={product?.id}
-                    title={product?.title}
-                    thumbnail={product?.thumbnail}
-                    price={product?.price}
+                    id={product.id}
+                    title={product.title}
+                    thumbnail={product.thumbnail}
+                    price={product.price}
                     totalStock={product.stock}
                   />
                 </React.Fragment>
@@ -71,7 +71,7 @@ export default function Catalog() {
         )}
         {!allProductsLoaded && (
           <DefaultButton
-            children={status === "loading" ? "Loading products" : "Show more"}
+            children={status === "loading" ? "Loading..." : "Show more"}
             onClick={handleLoadProducts}
             type={"button"}
             disabled={status === "loading" ? true : false}

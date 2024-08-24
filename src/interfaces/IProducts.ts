@@ -1,4 +1,5 @@
 export interface IProduct {
+  products: any;
   id: number;
   title: string;
   price: number;

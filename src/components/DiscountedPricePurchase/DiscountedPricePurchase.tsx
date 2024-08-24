@@ -19,7 +19,7 @@ export default function DiscountedPricePurchase({
     const newItem = {
       id: product.id,
       title: product.title,
-      price: product.price,
+      price: newprice,
       quantity: itemCount,
       total: product.stock,
       discountPercentage: product.discountPercentage,

@@ -1,40 +1,24 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import cart from "./plusMinusItem.module.scss";
 import { IPlusMinusItem } from "@src/interfaces/IPlusMinusItem";
-import { useDispatch } from "react-redux";
-import {
-  decreaseQuantityThunk,
-  increaseQuantityThunk,
-} from "@src/store/cart/thunks/cartThunks";
-import { AppDispatch } from "@src/store/store";
-import { addItem } from "@src/store/cart/cartSlice";
+import { useDebouncedCartUpdate } from "@src/util/useDebouncedCartUpdate";
 
 export default function PlusMinusItem({
   count,
   id,
   totalStock,
+  handleDeleteItem
 }: IPlusMinusItem) {
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleAddItem = () => {
-    if (count === 0) {
-      dispatch(addItem({ id, quantity: 1 }));
-    } else {
-      dispatch(increaseQuantityThunk(id));
-    }
-  };
-
-  const handleDecreaseItem = () => {
-    dispatch(decreaseQuantityThunk(id));
-  };
+  const { handleIncreaseQuantity, handleDecreaseQuantity, isUpdating } =
+    useDebouncedCartUpdate(id);
 
   return (
     <>
       <div className={cart.cart_plusminus_btn}>
         <DefaultButton
           ariaLabel="Decrease quantity button"
-          onClick={handleDecreaseItem}
-          disabled={count <= 1}
+          onClick={count === 1 ? handleDeleteItem : handleDecreaseQuantity}
+          disabled={isUpdating}
           type={"button"}
         >
           <svg
@@ -55,9 +39,9 @@ export default function PlusMinusItem({
         </span>
         <DefaultButton
           ariaLabel="Increase quantity button"
-          onClick={handleAddItem}
+          onClick={handleIncreaseQuantity}
           type={"button"}
-          disabled={count === totalStock}
+          disabled={count === totalStock || isUpdating}
         >
           <svg
             width="18"

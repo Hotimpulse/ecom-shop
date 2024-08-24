@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { ICart, ICartItem, ICartsData } from "@src/interfaces/IUserCarts";
+import { ICart, ICartsData } from "@src/interfaces/IUserCarts";
 import getAuthToken from "@src/util/getAuthToken";
 import { WritableDraft } from "immer";
 
@@ -79,20 +79,31 @@ const cartsSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      // payload = newItem
+      const newItem = action.payload;
       const existingItem = state.carts[0]?.products.find(
-        (item) => item.id === action.payload
+        (item) => item.id === newItem.id
       );
 
       if (existingItem) {
         existingItem.quantity += 1;
+        existingItem.total = existingItem.quantity * (existingItem.price || 0);
+        existingItem.discountedTotal =
+          existingItem.total -
+          (existingItem.total * (existingItem.discountPercentage || 0)) / 100;
       } else {
-        state.carts[0].products.push({ ...action.payload, quantity: 1 });
+        const itemToAdd = {
+          ...newItem,
+          quantity: 1,
+          total: newItem.price * 1,
+          discountedTotal:
+            newItem.price * 1 -
+            (newItem.price * (newItem.discountPercentage || 0)) / 100,
+        };
+        state.carts[0].products.push(itemToAdd);
       }
       refreshCartState(state);
     },
     deleteItem(state, action) {
-      // payload = productId
       if (state.carts.length > 0) {
         state.carts[0].products = state.carts[0].products.filter(
           (item) => item.id !== action.payload
@@ -101,29 +112,25 @@ const cartsSlice = createSlice({
       }
     },
     increaseQuantity(state, action) {
-      if (state.carts.length > 0) {
-        const item = state.carts[0].products.find(
-          (item: ICartItem) => item.id === action.payload
-        );
-        if (item) {
-          item.quantity += 1;
-          item.total = item.quantity * item.price;
-          item.discountedTotal =
-            item.total - (item.total * item.discountPercentage) / 100;
-        }
+      const item = state.carts[0].products.find(
+        (item) => item.id === action.payload
+      );
+      if (item) {
+        item.quantity += 1;
+        item.total = item.quantity * (item.price || 0);
+        item.discountedTotal =
+          item.total - (item.total * (item.discountPercentage || 0)) / 100;
       }
     },
     decreaseQuantity(state, action) {
-      if (state.carts.length > 0) {
-        const item = state.carts[0].products.find(
-          (item) => item.id === action.payload
-        );
-        if (item && item.quantity > 1) {
-          item.quantity -= 1;
-          item.total = item.quantity * item.price;
-          item.discountedTotal =
-            item.total - (item.total * item.discountPercentage) / 100;
-        }
+      const item = state.carts[0].products.find(
+        (item) => item.id === action.payload
+      );
+      if (item && item.quantity > 0) {
+        item.quantity -= 1;
+        item.total = item.quantity * (item.price || 0);
+        item.discountedTotal =
+          item.total - (item.total * (item.discountPercentage || 0)) / 100;
       }
     },
     clearCart(state) {
@@ -140,8 +147,8 @@ const cartsSlice = createSlice({
         state.total = action.payload.total;
         state.skip = action.payload.skip;
         state.limit = action.payload.limit;
-        refreshCartState(state);
         state.status = "ready";
+        refreshCartState(state);
       })
       .addCase(fetchCart.rejected, (state) => {
         state.status = "error";
@@ -151,8 +158,8 @@ const cartsSlice = createSlice({
       })
       .addCase(updateCart.fulfilled, (state, action) => {
         state.carts[0] = action.payload;
-        refreshCartState(state);
         state.status = "ready";
+        refreshCartState(state);
       })
       .addCase(updateCart.rejected, (state) => {
         state.status = "error";
@@ -169,10 +176,12 @@ function refreshCartState(state: WritableDraft<ICartsData>) {
     );
     cart.totalProducts = cart.products.length;
     cart.total = cart.products.reduce((acc, item) => acc + item.total, 0);
-    cart.discountedTotal = cart.products.reduce(
-      (acc, item) => acc + item.discountedTotal,
-      0
-    );
+    cart.discountedTotal = cart.products.reduce((acc, item) => {
+      const discountPercentage = item.discountPercentage || 0;
+      const price = item.price || 0;
+      const discountedPrice = price - (price * discountPercentage) / 100;
+      return acc + discountedPrice * item.quantity;
+    }, 0);
   }
 }
 

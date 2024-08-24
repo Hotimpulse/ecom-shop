@@ -8,6 +8,7 @@ export interface ICartItem {
   discountedTotal: number;
   thumbnail?: string;
   children?: React.ReactNode;
+  isDeleted?: boolean;
 }
 
 export interface ICart {

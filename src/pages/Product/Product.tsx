@@ -17,7 +17,7 @@ export default function Product() {
   const { status, thumbnail, images } = useSelector(
     (store: RootState) => store.product
   );
-  const { carts } = useSelector((store: RootState) => store.carts.carts);
+  const { carts } = useSelector((store: RootState) => store.carts);
 
   useEffect(() => {
     if (id) {

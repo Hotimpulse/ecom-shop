@@ -25,9 +25,5 @@ export interface ICartsData {
   total: number;
   skip: number;
   limit: number;
-}
-
-export interface IUserCarts {
-  carts: ICartsData;
   status: string;
 }

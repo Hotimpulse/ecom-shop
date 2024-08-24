@@ -5,6 +5,7 @@ export interface IItemCard {
   price: number;
   title: string;
   thumbnail: string;
+  totalStock: number;
   children?: ReactNode;
 }
 

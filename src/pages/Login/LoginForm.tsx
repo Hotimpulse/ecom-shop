@@ -108,6 +108,7 @@ export default function LoginForm() {
                 formData[EFormFieldNames.password]?.trim()
               )
             }
+            ariaLabel={"Sign in button"}
           />
         </div>
       </form>

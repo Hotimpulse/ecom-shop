@@ -2,21 +2,30 @@ import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import cart from "./plusMinusItem.module.scss";
 import { IPlusMinusItem } from "@src/interfaces/IPlusMinusItem";
 import { useDispatch } from "react-redux";
-import { decreaseQuantity, increaseQuantity } from "@src/store/cart/cartSlice";
+import {
+  decreaseQuantityThunk,
+  increaseQuantityThunk,
+} from "@src/store/cart/thunks/cartThunks";
+import { AppDispatch } from "@src/store/store";
+import { addItem } from "@src/store/cart/cartSlice";
 
 export default function PlusMinusItem({
   count,
   id,
   totalStock,
 }: IPlusMinusItem) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleAddItem = () => {
-    dispatch(increaseQuantity(id));
+    if (count === 0) {
+      dispatch(addItem({ id, quantity: 1 }));
+    } else {
+      dispatch(increaseQuantityThunk(id));
+    }
   };
 
   const handleDecreaseItem = () => {
-    dispatch(decreaseQuantity(id));
+    dispatch(decreaseQuantityThunk(id));
   };
 
   return (

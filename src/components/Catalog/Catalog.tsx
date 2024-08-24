@@ -62,6 +62,7 @@ export default function Catalog() {
                     title={product?.title}
                     thumbnail={product?.thumbnail}
                     price={product?.price}
+                    totalStock={product.stock}
                   />
                 </React.Fragment>
               ))}

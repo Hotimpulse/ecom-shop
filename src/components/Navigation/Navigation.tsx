@@ -13,6 +13,8 @@ export default function Navigation({ mobile }: INavigation) {
   const { user } = useSelector((store: RootState) => store.user);
   const { carts, status } = useSelector((store: RootState) => store.carts);
 
+  const hasCartData = status === "ready" && carts.length > 0;
+
   const dispatch = useDispatch<AppDispatch>();
   const userId = user.id;
 
@@ -58,8 +60,8 @@ export default function Navigation({ mobile }: INavigation) {
         <li>
           <NavLink to="/cart">
             <div className={header.cart_wrapper}>
-              {status === "ready" && carts.carts.length !== 0 ? (
-                <CartComponent itemCount={carts.carts[0].totalQuantity} />
+              {hasCartData ? (
+                <CartComponent itemCount={carts[0].totalQuantity} />
               ) : (
                 <CartComponent itemCount={0} />
               )}

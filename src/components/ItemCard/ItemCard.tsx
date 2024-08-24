@@ -1,12 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
 import { IItemCard } from "@src/interfaces/IItemCard";
-import { RootState } from "@src/store/store";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@src/store/store";
+import { useDispatch, useSelector } from "react-redux";
 import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
 import { ICartItem } from "@src/interfaces/IUserCarts";
+import { addItem } from "@src/store/cart/cartSlice";
+import { increaseQuantityThunk } from "@src/store/cart/thunks/cartThunks";
 
-export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
+export default function ItemCard({
+  id,
+  title,
+  price,
+  thumbnail,
+  totalStock,
+}: IItemCard) {
   const navigate = useNavigate();
 
   function handleCardClick(): void {
@@ -14,13 +22,18 @@ export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
   }
 
   const { carts } = useSelector((store: RootState) => store.carts);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const cartProduct = carts.carts[0]?.products.find(
+  const cartProduct = carts[0]?.products.find(
     (product: ICartItem) => product.id === id
   );
 
   function handleAddToCart() {
-    
+    if (id !== carts[0].id) {
+      dispatch(addItem({ id, quantity: 1 }));
+    } else {
+      dispatch(increaseQuantityThunk(id));
+    }
   }
 
   return (
@@ -58,10 +71,18 @@ export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
         </div>
         {cartProduct ? (
           <div className={itemCard.card_plusminus_btn}>
-            <PlusMinusItem count={cartProduct.quantity} />
+            <PlusMinusItem
+              count={cartProduct.quantity}
+              id={cartProduct.id}
+              totalStock={totalStock}
+            />
           </div>
         ) : (
-          <button className={itemCard.card_btn} aria-label="add to cart button" onClick={handleAddToCart}>
+          <button
+            className={itemCard.card_btn}
+            aria-label="add to cart button"
+            onClick={handleAddToCart}
+          >
             <svg
               width="20"
               height="20"

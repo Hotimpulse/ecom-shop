@@ -13,7 +13,12 @@ export default function Hero() {
             We sell smartphones, laptops, clothes, shoes and many other products
             at low prices
           </p>
-          <DefaultButton children={"Go to shopping"} />
+          <DefaultButton
+            children={"Go to shopping"}
+            type={"button"}
+            disabled={false}
+            ariaLabel={"Button for shopping"}
+          />
           <p className={hero.hero_back_text}>Goods4you</p>
         </div>
       </div>

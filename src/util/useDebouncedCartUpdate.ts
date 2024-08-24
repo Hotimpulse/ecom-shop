@@ -16,7 +16,7 @@ export const useDebouncedCartUpdate = (productId: number) => {
   const [localQuantity, setLocalQuantity] = useState<number | null>(null);
 
   useEffect(() => {
-    if (localQuantity === null) return;
+    if (localQuantity === null || !isUpdating) return;
 
     const timeoutId = setTimeout(() => {
       const updatedCart: ICart = carts[0];
@@ -33,7 +33,7 @@ export const useDebouncedCartUpdate = (productId: number) => {
     }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [localQuantity, dispatch, carts]);
+  }, [localQuantity, dispatch, carts, isUpdating]);
 
   const handleIncreaseQuantity = () => {
     setIsUpdating(true);

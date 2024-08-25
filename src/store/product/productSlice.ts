@@ -14,6 +14,7 @@ const initialState: IProduct = {
   stock: 0,
   tags: [""],
   status: "",
+  products: []
 };
 
 export const fetchProductInfo = createAsyncThunk(

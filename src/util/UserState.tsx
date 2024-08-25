@@ -13,6 +13,6 @@ export default function UserState() {
       dispatch(fetchUserInfo());
     }
   }, [dispatch]);
-  
+
   return null;
 }

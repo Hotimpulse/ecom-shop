@@ -61,7 +61,7 @@ export const fetchUserInfo = createAsyncThunk(
 
     if (!token) throw new Error("No token available!");
 
-    const response = await fetch("https://dummyjson.com/auth/users/me", {
+    const response = await fetch("https://dummyjson.com/auth/me", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

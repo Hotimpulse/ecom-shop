@@ -1,5 +1,4 @@
 export interface IProduct {
-  products: any;
   id: number;
   title: string;
   price: number;
@@ -23,6 +22,7 @@ export interface IProduct {
   meta?: object;
   images?: [];
   status?: string;
+  products?: [];
 }
 
 export interface IProductsData {

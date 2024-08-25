@@ -13,7 +13,7 @@ export interface IUser {
   refreshToken: string;
 }
 
-interface IUserState {
+export interface IUserState {
   status: string;
   user: IUser;
 }

@@ -1,6 +1,5 @@
 import getAuthToken from "../getAuthToken";
-import { describe, it } from "vitest";
-import { expect } from "vitest";
+import { describe, it, expect } from "vitest";
 
 interface LocalStorageMock {
   getItem: (key: string) => string | null;

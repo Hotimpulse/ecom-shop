@@ -14,12 +14,12 @@ const initialState: IProduct = {
   stock: 0,
   tags: [""],
   status: "",
-  products: []
+  products: [],
 };
 
 export const fetchProductInfo = createAsyncThunk(
   "products/fetchProductInfo",
-  async (id: number) => {
+  async (id: number, { rejectWithValue }) => {
     const token = getAuthToken();
 
     const response = await fetch(`https://dummyjson.com/auth/products/${id}`, {
@@ -30,7 +30,9 @@ export const fetchProductInfo = createAsyncThunk(
       },
     });
 
-    if (!response.ok) throw new Error("Error getting item data!");
+    if (!response.ok) {
+      rejectWithValue("Unauthorized");
+    }
 
     const data: IProduct = await response.json();
     return data;
@@ -56,8 +58,12 @@ const productSlice = createSlice({
           };
         }
       )
-      .addCase(fetchProductInfo.rejected, (state) => {
-        state.status = "error";
+      .addCase(fetchProductInfo.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

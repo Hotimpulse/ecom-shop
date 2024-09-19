@@ -23,7 +23,7 @@ const initialState: ICartsData = {
 
 export const fetchCart = createAsyncThunk(
   "cart/fetchCarts",
-  async (userid: number) => {
+  async (userid: number, { rejectWithValue }) => {
     const token = getAuthToken();
 
     const response = await fetch(
@@ -37,7 +37,9 @@ export const fetchCart = createAsyncThunk(
       }
     );
 
-    if (!response.ok) throw new Error("Failed to fetch carts!");
+    if (!response.ok) {
+      return rejectWithValue("Unauthorized");
+    }
 
     const data: ICartsData = await response.json();
     return data;
@@ -46,10 +48,13 @@ export const fetchCart = createAsyncThunk(
 
 export const updateCart = createAsyncThunk(
   "cart/updateCart",
-  async (updatedCart: {
-    cartId: number;
-    products: { id: number; quantity: number }[];
-  }) => {
+  async (
+    updatedCart: {
+      cartId: number;
+      products: { id: number; quantity: number }[];
+    },
+    { rejectWithValue }
+  ) => {
     const token = getAuthToken();
 
     const response = await fetch(
@@ -67,7 +72,9 @@ export const updateCart = createAsyncThunk(
       }
     );
 
-    if (!response.ok) throw new Error("Failed to update the cart!");
+    if (!response.ok) {
+      return rejectWithValue("Unauthorized");
+    }
 
     const data: ICart = await response.json();
     return data;
@@ -161,8 +168,12 @@ const cartsSlice = createSlice({
         state.status = "ready";
         refreshCartState(state);
       })
-      .addCase(updateCart.rejected, (state) => {
-        state.status = "error";
+      .addCase(updateCart.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

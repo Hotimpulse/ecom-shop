@@ -43,6 +43,7 @@ export const loginUser = createAsyncThunk(
       body: JSON.stringify({
         username: username,
         password: password,
+        expiresInMins: 30,
       }),
     });
 
@@ -56,10 +57,12 @@ export const loginUser = createAsyncThunk(
 
 export const fetchUserInfo = createAsyncThunk(
   "user/fetchUserInfo",
-  async () => {
+  async (_, { rejectWithValue }) => {
     const token = getAuthToken();
 
-    if (!token) throw new Error("No token available!");
+    if (!token) {
+      return rejectWithValue("No token available! Please login.");
+    }
 
     const response = await fetch("https://dummyjson.com/auth/me", {
       method: "GET",
@@ -69,12 +72,10 @@ export const fetchUserInfo = createAsyncThunk(
       },
     });
 
-    if (response.status === 401) {
+    if (response.status === 401 || !response.ok) {
       localStorage.removeItem("token");
-      throw new Error("Unauthorized! Please login again.");
+      return rejectWithValue("Unauthorized! Please login again.");
     }
-
-    if (!response.ok) throw new Error("Failed to fetch user info!");
 
     const data: IUser = await response.json();
     return data;
@@ -109,8 +110,12 @@ const userSlice = createSlice({
         state.user = action.payload;
         state.status = "ready";
       })
-      .addCase(fetchUserInfo.rejected, (state) => {
-        state.status = "error";
+      .addCase(fetchUserInfo.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

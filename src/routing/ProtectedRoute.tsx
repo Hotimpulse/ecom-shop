@@ -1,9 +1,7 @@
-import { RootState } from "@src/store/store";
-import Spinner from "@src/ui/Spinner/Spinner";
-import getAuthToken from "@src/util/getAuthToken";
-import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "@src/store/store";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface IProtectedRoute {
   children: React.ReactNode;
@@ -11,33 +9,13 @@ interface IProtectedRoute {
 
 export default function ProtectedRoute({ children }: IProtectedRoute) {
   const navigate = useNavigate();
-  const { user, status } = useSelector((store: RootState) => store.user);
-
-  const [token, setToken] = useState<string | null>(getAuthToken());
+  const status = useSelector((state: RootState) => state.products.status);
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      const newToken = getAuthToken();
-      setToken(newToken);
-      if (!newToken) {
-        navigate("/login");
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, [navigate]);
-
-  useEffect(() => {
-    if (!token && user.id === null) {
+    if (status === "unauthorized") {
       navigate("/login");
     }
-  }, [token, user, navigate]);
-
-  if (status === "loading") return <Spinner />;
+  }, [status, navigate]);
 
   return <>{children}</>;
 }

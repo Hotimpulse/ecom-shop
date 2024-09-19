@@ -3,14 +3,12 @@ import "./ui/variables.scss";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import RouterWithRoutes from "./routing/RouterWithRoutes";
-import UserState from "./util/UserState";
 import store from "./store/store";
 import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   return (
     <Provider store={store}>
-      <UserState />
       <RouterWithRoutes />
       <Toaster
         position="bottom-right"

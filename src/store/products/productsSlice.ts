@@ -10,7 +10,7 @@ const initialState: IProducts = {
     limit: 12,
     total: 0,
   },
-  status: "", // 'loading', 'error', 'ready'
+  status: "", // 'loading', 'error', 'ready', 'unauthorized'
   input: "",
   append: false,
 };
@@ -19,7 +19,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (
     { input, append }: { input: string; append: boolean },
-    { getState }
+    { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
     const { limit, skip } = state.products.products;
@@ -39,7 +39,14 @@ export const fetchProducts = createAsyncThunk(
       }
     );
 
-    if (!response.ok) throw new Error("Failed to fetch products!");
+    if (response.status === 401) {
+      localStorage.removeItem("token");
+      return rejectWithValue("Unauthorized");
+    }
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
 
     const data: IProductsData = await response.json();
     return { data, append };
@@ -73,8 +80,12 @@ const productsSlice = createSlice({
         };
         state.status = "ready";
       })
-      .addCase(fetchProducts.rejected, (state) => {
-        state.status = "error";
+      .addCase(fetchProducts.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

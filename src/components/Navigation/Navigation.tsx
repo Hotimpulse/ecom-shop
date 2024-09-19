@@ -12,8 +12,8 @@ import { fetchCart } from "@src/store/cart/cartSlice";
 export default function Navigation({ mobile }: INavigation) {
   const { user } = useSelector((store: RootState) => store.user);
   const { carts, status } = useSelector((store: RootState) => store.carts);
-  
-  const hasCartData = status === "ready" && carts.length > 0;
+
+  const hasCartData = status === "ready" && carts && carts.length > 0;
 
   const dispatch = useDispatch<AppDispatch>();
   const userId = user.id;
@@ -24,6 +24,7 @@ export default function Navigation({ mobile }: INavigation) {
         if (userId !== null) {
           await dispatch(fetchCart(userId)).unwrap();
         }
+        return null;
       } catch (error) {
         toast.error("Error getting carts!");
       }
@@ -60,7 +61,6 @@ export default function Navigation({ mobile }: INavigation) {
         <li>
           <NavLink to="/cart">
             <div className={header.cart_wrapper}>
-              {status === 'loading' && <CartComponent itemCount={carts[0].totalQuantity} />}
               {hasCartData ? (
                 <CartComponent itemCount={carts[0].totalQuantity} />
               ) : (

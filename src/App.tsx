@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import RouterWithRoutes from "./routing/RouterWithRoutes";
 import UserState from "./util/UserState";
 import store from "./store/store";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   return (

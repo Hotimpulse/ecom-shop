@@ -5,7 +5,7 @@ import PlusMinusItem from "@src/components/Cart/PlusMinusItem/PlusMinusItem";
 import cartItems from "../../components/Cart/CartItems/cartItems.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@src/store/store";
-import Spinner from "@src/ui/Spinner/Spinner";
+import Skeleton from "react-loading-skeleton";
 import { ICartItem } from "@src/interfaces/IUserCarts";
 import { fetchProductInfo } from "@src/store/product/productSlice";
 import { useEffect, useState } from "react";
@@ -59,8 +59,7 @@ export default function Cart() {
   return (
     <div className={cart.cart_wrapper}>
       <h1 className={cart.cart_header}>My cart</h1>
-      {status === "loading" && <Spinner />}
-      {status === "ready" && carts[0] !== undefined && (
+      {carts[0] !== undefined && (
         <div className={cart.cart_main_container}>
           <div
             className={
@@ -70,46 +69,57 @@ export default function Cart() {
             }
           >
             <div className={cart.cart_contents}>
-              {carts[0]?.products.map((item: ICartItem, index: number) => {
-                const totalStock = stockInfo[item.id] || 0;
+              {status === "loading" && (
+                <Skeleton
+                  style={{
+                    backgroundColor: "#484283",
+                  }}
+                  width={400}
+                  height={100}
+                  count={carts[0].products.length}
+                />
+              )}
+              {status === "ready" &&
+                carts[0]?.products.map((item: ICartItem, index: number) => {
+                  const totalStock = stockInfo[item.id] || 0;
 
-                return (
-                  <CartItems
-                    key={index}
-                    title={item.title}
-                    thumbnail={item.thumbnail}
-                    id={item.id}
-                    quantity={item.quantity}
-                    discountPercentage={item.discountPercentage}
-                    total={item.total}
-                    discountedTotal={item.discountedTotal}
-                    price={
-                      +(
-                        item.quantity *
-                        (item.price -
-                          (item.price * item.discountPercentage) / 100)
-                      ).toFixed(2) || item.price
-                    }
-                  >
-                    <div className={cartItems.cart_right_container}>
-                      <div className={cartItems.cart_btn_container}>
-                        <PlusMinusItem
-                          count={item.quantity}
-                          id={item.id}
-                          totalStock={totalStock}
-                          handleDeleteItem={() => handleDeleteItem(item)}
-                        />
+                  return (
+                    <CartItems
+                      key={index}
+                      title={item.title}
+                      thumbnail={item.thumbnail}
+                      id={item.id}
+                      quantity={item.quantity}
+                      discountPercentage={item.discountPercentage}
+                      total={item.total}
+                      discountedTotal={item.discountedTotal}
+                      price={
+                        +(
+                          item.quantity *
+                          (item.price -
+                            (item.price * item.discountPercentage) / 100)
+                        ).toFixed(2) || item.price
+                      }
+                    >
+                      <div className={cartItems.cart_right_container}>
+                        <div className={cartItems.cart_btn_container}>
+                          <PlusMinusItem
+                            count={item.quantity}
+                            id={item.id}
+                            totalStock={totalStock}
+                            handleDeleteItem={() => handleDeleteItem(item)}
+                          />
+                        </div>
+                        <a
+                          className={cartItems.cart_item_del_text}
+                          onClick={() => handleDeleteItem(item)}
+                        >
+                          Delete
+                        </a>
                       </div>
-                      <a
-                        className={cartItems.cart_item_del_text}
-                        onClick={() => handleDeleteItem(item)}
-                      >
-                        Delete
-                      </a>
-                    </div>
-                  </CartItems>
-                );
-              })}
+                    </CartItems>
+                  );
+                })}
               {deletedItems.length > 0 && (
                 <div className={cart.cart_deleted_items}>
                   {deletedItems.map((item: ICartItem) => (
@@ -136,7 +146,10 @@ export default function Cart() {
               )}
             </div>
           </div>
-          {carts[0].products.length !== 0 && (
+          {status === "loading" && (
+            <Skeleton width={240} height={50} count={3} />
+          )}
+          {status === "ready" && carts[0].products.length !== 0 && (
             <CartInfo
               totalCount={carts[0]?.totalQuantity}
               totalPriceNoDiscount={parseFloat(carts[0]?.total.toFixed(2))}
@@ -150,7 +163,7 @@ export default function Cart() {
 
       {((status === "ready" && carts[0] === undefined) ||
         status === "error" ||
-        carts[0].products.length === 0) && (
+        (status === "ready" && carts[0].products.length === 0)) && (
         <div className={cart.cart_main_container}>
           <p className={cart.cart_no_items_text}>No items</p>
         </div>

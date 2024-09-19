@@ -17,11 +17,19 @@ export default function Layout(): JSX.Element {
     <HelmetProvider>
       <Helmet title={`${capitalizedName}`} />
       <div className={layout.wrapper}>
-        <Header />
-        <main className={layout.main}>
-          <Outlet />
-        </main>
-        <Footer />
+        {pathname === "/login" ? (
+          <main className={layout.main}>
+            <Outlet />
+          </main>
+        ) : (
+          <>
+            <Header />
+            <main className={layout.main}>
+              <Outlet />
+            </main>
+            <Footer />
+          </>
+        )}
       </div>
     </HelmetProvider>
   );

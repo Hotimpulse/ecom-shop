@@ -1,18 +1,17 @@
 export interface ICartItem {
-  id?: number;
+  id: number;
   title: string;
   price: number;
-  quantity?: number;
-  total?: number;
-  discountPercentage?: number;
-  discountedTotal?: number;
+  quantity: number;
+  total: number;
+  discountPercentage: number;
+  discountedTotal: number;
   thumbnail?: string;
   children?: React.ReactNode;
+  isDeleted?: boolean;
 }
 
 export interface ICart {
-  quantity: string | undefined;
-  title: string;
   id: number;
   products: ICartItem[];
   total: number;
@@ -27,9 +26,5 @@ export interface ICartsData {
   total: number;
   skip: number;
   limit: number;
-}
-
-export interface IUserCarts {
-  carts: ICartsData;
   status: string;
 }

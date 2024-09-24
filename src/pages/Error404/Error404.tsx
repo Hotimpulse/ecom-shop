@@ -9,7 +9,7 @@ export default function Error404() {
     <div className={error["error-wrapper"]}>
       <div className={error.container}>
         <h1 className={error.heading}>404</h1>
-        <DefaultButton onClick={() => navigate("/")} children={"Back to main"} />
+        <DefaultButton onClick={() => navigate("/")} children={"Back to main"} type={"button"} disabled={false} ariaLabel={"Back to main button"} />
       </div>
     </div>
   );

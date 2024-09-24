@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProduct } from "@src/interfaces/IProducts";
+import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IProduct = {
   id: 0,
@@ -12,17 +13,28 @@ const initialState: IProduct = {
   rating: 0,
   stock: 0,
   tags: [""],
-  status: "loading",
+  status: "",
+  products: [],
 };
 
 export const fetchProductInfo = createAsyncThunk(
   "products/fetchProductInfo",
-  async (id: number) => {
-    const response = await fetch(`https://dummyjson.com/products/${id}`);
+  async (id: number, { rejectWithValue }) => {
+    const token = getAuthToken();
 
-    if (!response.ok) throw new Error("Error getting item data!");
+    const response = await fetch(`https://dummyjson.com/auth/products/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-    const data = await response.json();
+    if (!response.ok) {
+      rejectWithValue("Unauthorized");
+    }
+
+    const data: IProduct = await response.json();
     return data;
   }
 );
@@ -46,8 +58,12 @@ const productSlice = createSlice({
           };
         }
       )
-      .addCase(fetchProductInfo.rejected, (state) => {
-        state.status = "error";
+      .addCase(fetchProductInfo.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

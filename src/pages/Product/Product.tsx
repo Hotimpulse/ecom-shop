@@ -14,10 +14,10 @@ export default function Product() {
   const { id } = useParams<{ id: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const product = useSelector((store: RootState) => store.product);
-  const { carts } = useSelector((store: RootState) => store.carts.carts);
   const { status, thumbnail, images } = useSelector(
     (store: RootState) => store.product
   );
+  const { carts } = useSelector((store: RootState) => store.carts);
 
   useEffect(() => {
     if (id) {
@@ -25,10 +25,12 @@ export default function Product() {
     }
   }, [id, dispatch]);
 
-  const priceAfterDiscount = (
-    product.price -
-    (product.price * product.discountPercentage) / 100
-  ).toFixed(2);
+  const priceAfterDiscount = parseFloat(
+    (
+      product.price -
+      (product.price * product.discountPercentage) / 100
+    ).toFixed(2)
+  );
 
   const cartProduct = carts[0]?.products.find(
     (item: ICartItem) => item.id === Number(id)
@@ -79,9 +81,10 @@ export default function Product() {
               <DiscountedPricePurchase
                 newprice={`$${priceAfterDiscount}`}
                 oldprice={`$${product.price}`}
-                discount={product.discountPercentage}
                 inCartCheck={!!cartProduct}
-                itemCount={cartProduct?.quantity || 0}
+                itemCount={cartProduct?.quantity || 1}
+                product={product}
+                discountedTotal={priceAfterDiscount}
               />
             </div>
           </>

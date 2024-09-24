@@ -1,12 +1,27 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import cart from "./plusMinusItem.module.scss";
 import { IPlusMinusItem } from "@src/interfaces/IPlusMinusItem";
+import { useDebouncedCartUpdate } from "@src/util/useDebouncedCartUpdate";
 
-export default function PlusMinusItem({ count }: IPlusMinusItem) {
+export default function PlusMinusItem({
+  count,
+  id,
+  totalStock,
+  handleDeleteItem,
+  lastProductDisable
+}: IPlusMinusItem) {
+  const { handleIncreaseQuantity, handleDecreaseQuantity, isUpdating } =
+    useDebouncedCartUpdate(id);
+
   return (
     <>
       <div className={cart.cart_plusminus_btn}>
-        <DefaultButton ariaLabel="Decrease quantity button">
+        <DefaultButton
+          ariaLabel="Decrease quantity button"
+          onClick={count === 1 ? handleDeleteItem : handleDecreaseQuantity}
+          disabled={isUpdating || (!!lastProductDisable)}
+          type={"button"}
+        >
           <svg
             width="18"
             height="4"
@@ -21,9 +36,14 @@ export default function PlusMinusItem({ count }: IPlusMinusItem) {
           </svg>
         </DefaultButton>
         <span className={cart.cart_item_count}>
-          {count} {count && (count > 1) ? `items` : `item`}
+          {count} {count && count > 1 ? `items` : `item`}
         </span>
-        <DefaultButton ariaLabel="Increase quantity button">
+        <DefaultButton
+          ariaLabel="Increase quantity button"
+          onClick={handleIncreaseQuantity}
+          type={"button"}
+          disabled={count === totalStock || isUpdating}
+        >
           <svg
             width="18"
             height="18"

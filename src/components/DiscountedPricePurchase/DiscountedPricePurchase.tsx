@@ -2,14 +2,33 @@ import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import discountedPricePurchase from "./discountedPricePurchase.module.scss";
 import { IDiscountedPricePurchase } from "@src/interfaces/IDiscountedPricePurchase";
 import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
+import { useDispatch } from "react-redux";
+import { addItem } from "@src/store/cart/cartSlice";
 
 export default function DiscountedPricePurchase({
   newprice,
   oldprice,
-  discount,
   inCartCheck,
   itemCount,
+  discountedTotal,
+  product,
 }: IDiscountedPricePurchase) {
+  const dispatch = useDispatch();
+
+  function handleAddToCart(): void {
+    const newItem = {
+      id: product.id,
+      title: product.title,
+      price: newprice,
+      quantity: itemCount,
+      total: product.stock,
+      discountPercentage: product.discountPercentage,
+      discountedTotal: discountedTotal,
+      thumbnail: product.thumbnail,
+    };
+    dispatch(addItem(newItem));
+  }
+
   return (
     <div className={discountedPricePurchase.price_wrapper}>
       <div className={discountedPricePurchase.price_container}>
@@ -22,14 +41,26 @@ export default function DiscountedPricePurchase({
           <p className={discountedPricePurchase.discount}>
             {`Your discount:`}
             <span className={discountedPricePurchase.discount_number}>
-              {discount}%
+              {product.discountPercentage}%
             </span>
           </p>
         </div>
         {inCartCheck ? (
-          <PlusMinusItem count={itemCount} />
+          <PlusMinusItem
+            count={itemCount}
+            id={product.id || 0}
+            totalStock={product.stock}
+            lastProductDisable={itemCount === 1 ? true : false}
+          />
         ) : (
-          <DefaultButton>Add to cart</DefaultButton>
+          <DefaultButton
+            onClick={handleAddToCart}
+            type={"button"}
+            disabled={false}
+            ariaLabel={"Add to cart button"}
+          >
+            Add to cart
+          </DefaultButton>
         )}
       </div>
     </div>

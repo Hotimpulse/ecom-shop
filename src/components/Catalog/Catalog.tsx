@@ -44,13 +44,13 @@ export default function Catalog() {
     <div className={catalog.catalog_wrapper}>
       <div className={catalog.catalog_container}>
         <a href="#catalog" className={catalog.catalog_header}>
-          <span>Catalog</span>
+          <h2 className={catalog.catalog_header}>Catalog</h2>
         </a>
         <SearchBar />
-        {status === "error" && products.products.length === 0 && (
-          <p>No items were found ❌</p>
-        )}
-        {products.products.length === 0 && <p>No items were found ❌</p>}
+        {status === "error" ||
+          (products.products.length === 0 && (
+            <p>Looking for items... 🔎 Where are they? 👀 </p>
+          ))}
         {status === "loading" && <Spinner />}
         {status === "ready" && (
           <div className={catalog.catalog_grid_container}>
@@ -58,21 +58,25 @@ export default function Catalog() {
               {products.products.map((product: IProduct, index: number) => (
                 <React.Fragment key={index}>
                   <ItemCard
-                    id={product?.id}
-                    title={product?.title}
-                    thumbnail={product?.thumbnail}
-                    price={product?.price}
+                    id={product.id}
+                    title={product.title}
+                    thumbnail={product.thumbnail}
+                    price={product.price}
+                    totalStock={product.stock}
                   />
                 </React.Fragment>
               ))}
             </div>
-            {!allProductsLoaded && (
-              <DefaultButton
-                children={"Show more"}
-                onClick={handleLoadProducts}
-              />
-            )}
           </div>
+        )}
+        {!allProductsLoaded && (
+          <DefaultButton
+            children={status === "loading" ? "Loading..." : "Show more"}
+            onClick={handleLoadProducts}
+            type={"button"}
+            disabled={status === "loading" ? true : false}
+            ariaLabel={"Show more button"}
+          />
         )}
       </div>
     </div>

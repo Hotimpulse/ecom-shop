@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IProducts, IProductsData } from "@src/interfaces/IProducts";
 import { RootState } from "../store";
+import getAuthToken from "@src/util/getAuthToken";
 
 const initialState: IProducts = {
   products: {
@@ -9,7 +10,7 @@ const initialState: IProducts = {
     limit: 12,
     total: 0,
   },
-  status: "loading", // 'loading', 'error', 'ready'
+  status: "", // 'loading', 'error', 'ready', 'unauthorized'
   input: "",
   append: false,
 };
@@ -18,17 +19,34 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (
     { input, append }: { input: string; append: boolean },
-    { getState }
+    { getState, rejectWithValue }
   ) => {
     const state = getState() as RootState;
     const { limit, skip } = state.products.products;
+
+    const token = getAuthToken();
+
     const response = await fetch(
-      `https://dummyjson.com/products/search?q=${input}&limit=${limit}&skip=${
+      `https://dummyjson.com/auth/products/search?q=${input}&limit=${limit}&skip=${
         append ? skip : 0
-      }`
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
     );
 
-    if (!response.ok) throw new Error("Failed to fetch products!");
+    if (response.status === 401) {
+      localStorage.removeItem("token");
+      return rejectWithValue("Unauthorized");
+    }
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch products");
+    }
 
     const data: IProductsData = await response.json();
     return { data, append };
@@ -62,8 +80,12 @@ const productsSlice = createSlice({
         };
         state.status = "ready";
       })
-      .addCase(fetchProducts.rejected, (state) => {
-        state.status = "error";
+      .addCase(fetchProducts.rejected, (state, action) => {
+        if (action.payload === "Unauthorized") {
+          state.status = "unauthorized";
+        } else {
+          state.status = "error";
+        }
       });
   },
 });

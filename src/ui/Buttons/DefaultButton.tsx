@@ -4,9 +4,9 @@ import defaultButton from "./defaultButton.module.scss";
 export interface IButtonProps {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
-  ariaLabel?: string;
+  type: "button" | "submit" | "reset";
+  disabled: boolean;
+  ariaLabel: string;
   className?: React.HTMLAttributes<HTMLButtonElement>;
 }
 

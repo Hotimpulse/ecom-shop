@@ -1,0 +1,82 @@
+@import "../../ui/variables.scss";
+
+.cart_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  justify-content: flex-start;
+  margin: 0 auto;
+  width: min(100% - 0rem, 1440px);
+
+  padding: 0 130px;
+  margin-top: 48px;
+  position: relative;
+  z-index: 2;
+  font-family: Jost, sans-serif;
+
+  @media (max-width: $phone-width) {
+    padding: 0 1rem;
+    place-items: center;
+    margin-bottom: 2rem;
+  }
+
+  @media ((min-width: $phone-width) and (max-width: $tablet-width)) {
+    padding: 0 1rem;
+    place-items: center;
+    margin-bottom: 2rem;
+  }
+  @media (width < 1280px) {
+    place-items: center;
+  }
+}
+
+.cart_header {
+  font-size: 36px;
+}
+
+.cart_main_container {
+  display: flex;
+  gap: 48px;
+  @media (max-width: $phone-width) {
+    flex-direction: column;
+    padding: 1rem;
+    place-items: center;
+  }
+
+  @media (width < 1280px) {
+    flex-direction: column;
+    place-items: center;
+  }
+}
+
+.cart_items_container {
+  display: flex;
+  border: 1px solid $border-grey;
+  border-radius: 4px;
+  padding: 20px 40px;
+  max-width: 776px;
+  height: 566px;
+
+  @media (max-width: $phone-width) {
+    padding: 0;
+    max-width: 300px;
+    height: fit-content;
+    place-items: center;
+  }
+
+  @media ((min-width: $phone-width) and (max-width: $tablet-width)) {
+    padding: 0;
+  }
+
+  @media (width < 1200px) {
+    max-width: fit-content;
+    height: fit-content;
+    padding: 20px;
+  }
+}
+
+.cart_contents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

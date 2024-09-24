@@ -1,0 +1,52 @@
+@import "../../ui/variables.scss";
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  margin: 0 auto;
+  max-width: 880px;
+}
+
+.accordion_title_wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  cursor: pointer;
+  @media (max-width: $phone-width) {
+    gap: 1rem;
+  }
+}
+
+.accordion_title {
+  font-family: Jost, sans-serif;
+  font-size: 20px;
+  line-height: 30px;
+  color: #fff;
+}
+
+.accordion_text {
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 20px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.accordion_text .open {
+  max-height: fit-content;
+}
+
+.accordion_cross_svg {
+  transition: transform 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.accordion_cross_svg.active {
+  transform: rotate(45deg);
+}

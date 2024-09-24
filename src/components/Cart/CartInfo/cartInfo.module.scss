@@ -1,0 +1,70 @@
+@import "../../../ui/variables.scss";
+
+.cart_info {
+  display: flex;
+  flex-direction: column;
+  width: 356px;
+  @media (max-width: $phone-width) {
+    max-width: 300px;
+  }
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 2rem;
+  }
+}
+
+.cart_pricing_wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+
+.cart_count_wrap {
+  display: flex;
+  justify-content: space-between;
+
+  .cart_count_text {
+    font-size: 20px;
+    color: $count-grey;
+  }
+  .cart_count_items {
+    font-size: 20px;
+    color: $accent-color;
+  }
+}
+
+.cart_discount_wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  .cart_discount_text {
+    font-size: 20px;
+    font-weight: 500;
+    color: $count-grey;
+  }
+
+  .cart_discount_price {
+    font-size: 20px;
+    font-weight: 600;
+    color: $accent-color;
+  }
+}
+
+.cart_price_wrap {
+  display: flex;
+  justify-content: space-between;
+
+  .cart_total_text {
+    font-size: 24px;
+    font-weight: 500;
+    color: $count-grey;
+  }
+  .cart_total_price {
+    font-size: 24px;
+    font-weight: 600;
+    color: $accent-color;
+  }
+}

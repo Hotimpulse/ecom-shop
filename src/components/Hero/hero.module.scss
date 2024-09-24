@@ -1,0 +1,102 @@
+@import "../../ui/variables.scss";
+
+.hero_section {
+  display: flex;
+  background-color: #484283;
+  font-family: Jost, sans-serif;
+  height: 500px;
+}
+
+.hero_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+  width: min(100% - 0rem, 1440px);
+  position: relative;
+  z-index: 2;
+  padding: 0 130px;
+  @media (max-width: $phone-width) {
+    padding: 0 1rem;
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    padding: 0 1rem;
+  }
+}
+
+.hero_container {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 490px;
+  max-height: 270px;
+  margin-top: 115px;
+  @media (max-width: $phone-width) {
+    max-width: 320px;
+    margin-top: 45px;
+  }
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    max-width: 450px;
+    padding: 0 1rem;
+    margin-top: 45px;
+  }
+  @media (min-width: $tablet-width) {
+    max-width: 520px;
+  }
+}
+
+.title {
+  display: flex;
+  line-height: 50px;
+  font-size: 36px;
+  font-weight: 400;
+  max-width: 520px;
+  color: #fff;
+  @media (max-width: $phone-width) {
+    font-size: 30px;
+    max-width: 320px;
+    margin-top: 45px;
+  }
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    max-width: 520px;
+    margin-top: 45px;
+  }
+  @media (min-width: $tablet-width) {
+    max-width: 520px;
+  }
+}
+
+.hero_text {
+  width: 330px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #fff;
+  @media (max-width: $phone-width) {
+    max-width: 300px;
+  }
+}
+
+.hero_back_text {
+  display: flex;
+  place-items: center;
+  margin: 0 auto;
+  font-size: clamp(56px, 12vw, 200px);
+  line-height: 300px;
+  opacity: 12%;
+  color: #fff;
+  font-weight: bold;
+  margin-top: -18.5rem;
+  position: relative;
+  left: -8rem;
+  z-index: -1;
+  user-select: none;
+  padding: 0 176px;
+  @media (max-width: $phone-width) {
+    font-size: calc(30px + 3vw);
+  }
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    font-size: calc(50px + 2vw);
+  }
+}

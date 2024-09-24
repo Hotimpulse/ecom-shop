@@ -1,0 +1,120 @@
+@import "../../ui/variables.scss";
+
+.card_item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 370px;
+  max-height: 366px;
+  cursor: pointer;
+}
+
+img {
+  display: flex;
+  width: 100%;
+  height: auto;
+}
+
+.card_img_container {
+  display: inline-block;
+  position: relative;
+}
+
+.card_text_overlay {
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  user-select: none;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.card_img_container:hover :not(.card_text_overlay) {
+  cursor: pointer;
+  filter: contrast(95%) brightness(90%);
+}
+
+.card_img_container:hover .card_text_overlay {
+  opacity: 1;
+}
+
+.card_bottom_part {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  @media (max-width: $desktop-width) {
+    flex-wrap: wrap;
+  }
+}
+
+.card_texts {
+  display: flex;
+  flex-direction: column;
+}
+
+.card_title {
+  display: inline-block;
+  max-width: 250px;
+  font-size: 16px;
+  font-weight: 600;
+  color: $accent-color;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.card_price {
+  font-size: 18px;
+  color: $accent-color;
+}
+
+.card_title_overflow {
+  display: inline-block;
+  max-width: 180px;
+  font-size: 16px;
+  font-weight: 600;
+  color: $accent-color;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.card_btn {
+  display: flex;
+  place-items: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 16px;
+  background-color: $button-color;
+  color: $primary-color;
+  border-radius: 4px;
+  border: 0;
+
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  @media (max-width: $phone-width) {
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+  }
+}
+
+.card_btn:hover {
+  background-color: $button-hover-color;
+}
+
+.card_btn:disabled {
+  background-color: $button-disabled-color;
+  cursor: not-allowed;
+}

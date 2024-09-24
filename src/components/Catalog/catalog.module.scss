@@ -1,0 +1,147 @@
+@import "../../ui/variables.scss";
+
+.catalog_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin: 0 auto;
+  max-width: 1440px;
+  font-family: Jost, sans-serif;
+  padding: 0 130px;
+  @media (max-width: $phone-width) {
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  @media (width < 1280px) {
+    padding: 0 1rem;
+  }
+}
+
+.catalog_container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.catalog_search {
+  height: 62px;
+  padding: 0 20px;
+  color: $accent-color;
+  background-color: $search-input;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  font-size: 16px;
+  @media (max-width: $phone-width) {
+    margin: 0;
+    padding: 0 1rem;
+    max-width: calc(100% - 10px);
+  }
+
+  &::placeholder {
+    color: $count-grey;
+    font-size: 16px;
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    width: 100%;
+    max-width: calc(100% - 10px);
+  }
+}
+
+.catalog_search::placeholder {
+  font-family: Jost, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.catalog_header {
+  display: flex;
+  max-width: 129px;
+  text-decoration: none;
+  color: #444b58;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 56px;
+}
+
+.catalog_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px 35px;
+  @media (max-width: $phone-width) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: $tablet-width) {
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    padding: 0 1rem;
+  }
+}
+
+.catalog_grid_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+}
+
+.catalog_grid_item {
+  display: flex;
+  justify-content: flex;
+  margin-bottom: 6px;
+}
+
+.catalog_btn_container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  max-width: 188px;
+
+  button {
+    display: flex;
+    place-items: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+
+    @media (max-width: $phone-width) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: $phone-width) {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  @media ((min-width: $phone-width) and (max-width: $tablet-width)) {
+    gap: 1rem;
+    max-width: 200px;
+    height: fit-content;
+  }
+}
+
+.cart_btn_container {
+  display: flex;
+  gap: 20px;
+  place-items: center;
+  button {
+    width: 50px;
+    height: 50px;
+    padding: 16px;
+  }
+}
+
+.cart_item_count {
+  color: $accent-color;
+}

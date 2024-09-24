@@ -21,6 +21,7 @@
   @media (max-width: $phone-width) {
     max-width: 300px;
     max-height: fit-content;
+    flex-direction: column;
     gap: 10px;
   }
 
@@ -34,7 +35,8 @@
   @media (width < 1200px) {
     max-width: calc(90vw - 2rem);
     height: fit-content;
-    place-items: center;
+
+    justify-content: center;
   }
 }
 
@@ -69,6 +71,7 @@
 
   @media ((max-width: $phone-width)) {
     font-size: 12px;
+    max-width: 120px;
   }
 }
 

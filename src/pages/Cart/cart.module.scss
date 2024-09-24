@@ -80,3 +80,9 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.cart_no_items_text {
+  font-size: 24px;
+  color: $count-grey;
+  font-weight: 500;
+}

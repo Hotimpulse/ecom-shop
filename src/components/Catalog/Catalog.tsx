@@ -1,84 +1,79 @@
 import DefaultButton from "@src/ui/Buttons/DefaultButton";
 import catalog from "./catalog.module.scss";
 import ItemCard from "../ItemCard/ItemCard";
-import itemCard from "./../ItemCard/itemCard.module.scss";
-import React from "react";
+import React, { useEffect } from "react";
+import toast from "react-hot-toast";
+import Spinner from "@src/ui/Spinner/Spinner";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@src/store/store";
+import { IProduct } from "@src/interfaces/IProducts";
+import { fetchProducts } from "@src/store/products/productsSlice";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Catalog() {
+  const { products, status, input } = useSelector(
+    (store: RootState) => store.products
+  );
+  const dispatch = useDispatch<AppDispatch>();
+
+  const loadItems = async (append = false) => {
+    try {
+      await dispatch(fetchProducts({ input, append })).unwrap();
+    } catch (error) {
+      toast.error("Error getting products, check your connection!");
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      loadItems(false);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input]);
+
+  function handleLoadProducts(): void {
+    loadItems(true);
+  }
+
+  const allProductsLoaded = products.products.length >= products.total;
+
   return (
     <div className={catalog.catalog_wrapper}>
       <div className={catalog.catalog_container}>
         <a href="#catalog" className={catalog.catalog_header}>
           <span>Catalog</span>
         </a>
-        <input
-          type="text"
-          placeholder="Search by title"
-          className={catalog.catalog_search}
-        />
-
-        <div className={catalog.catalog_grid_container}>
-          <div className={catalog.catalog_grid}>
-            {Array.from({ length: 12 }, (_, index) => (
-              <React.Fragment key={index}>
-                {index === 5 ? (
+        <SearchBar />
+        {status === "error" && products.products.length === 0 && (
+          <p>No items were found ❌</p>
+        )}
+        {products.products.length === 0 && <p>No items were found ❌</p>}
+        {status === "loading" && <Spinner />}
+        {status === "ready" && (
+          <div className={catalog.catalog_grid_container}>
+            <div className={catalog.catalog_grid}>
+              {products.products.map((product: IProduct, index: number) => (
+                <React.Fragment key={index}>
                   <ItemCard
-                    heading={
-                      <h4 className={itemCard.card_title_overflow}>
-                        Essence Mascara Lash Princess
-                      </h4>
-                    }
-                  >
-                    <div className={catalog.cart_btn_container}>
-                      <DefaultButton>
-                        <svg
-                          width="18"
-                          height="10"
-                          viewBox="0 0 18 4"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16.5 3.50012L1.5 3.50012C0.671573 3.50012 0 2.82855 0 2.00012C0 1.17169 0.671573 0.500122 1.5 0.500122L16.5 0.500122C17.3284 0.500122 18 1.17169 18 2.00012C18 2.82855 17.3284 3.50012 16.5 3.50012Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </DefaultButton>
-                      <span className={catalog.cart_item_count}>1 item</span>
-                      <DefaultButton>
-                        <svg
-                          width="18"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M17 10L1 10C0.447715 10 0 9.55228 0 9C0 8.44772 0.447716 8 1 8L17 8C17.5523 8 18 8.44772 18 9C18 9.55228 17.5523 10 17 10Z"
-                            fill="white"
-                          />
-                          <path
-                            d="M8 17L8 1C8 0.447715 8.44772 0 9 0C9.55228 0 10 0.447716 10 1L10 17C10 17.5523 9.55228 18 9 18C8.44772 18 8 17.5523 8 17Z"
-                            fill="white"
-                          />
-                        </svg>
-                      </DefaultButton>
-                    </div>
-                  </ItemCard>
-                ) : (
-                  <ItemCard
-                    heading={
-                      <h4 className={itemCard.card_title}>
-                        Essence Mascara Lash Princess
-                      </h4>
-                    }
+                    id={product?.id}
+                    title={product?.title}
+                    thumbnail={product?.thumbnail}
+                    price={product?.price}
                   />
-                )}
-              </React.Fragment>
-            ))}
+                </React.Fragment>
+              ))}
+            </div>
+            {!allProductsLoaded && (
+              <DefaultButton
+                children={"Show more"}
+                onClick={handleLoadProducts}
+              />
+            )}
           </div>
-          <DefaultButton children={"Show more"} />
-        </div>
+        )}
       </div>
     </div>
   );

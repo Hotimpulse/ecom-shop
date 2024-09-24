@@ -1,42 +1,63 @@
 import { useNavigate } from "react-router-dom";
 import itemCard from "./itemCard.module.scss";
 import { IItemCard } from "@src/interfaces/IItemCard";
+import { RootState } from "@src/store/store";
+import { useSelector } from "react-redux";
+import PlusMinusItem from "../Cart/PlusMinusItem/PlusMinusItem";
+import { ICartItem } from "@src/interfaces/IUserCarts";
 
-export default function ItemCard({ children, heading }: IItemCard) {
+export default function ItemCard({ id, title, price, thumbnail }: IItemCard) {
   const navigate = useNavigate();
 
   function handleCardClick(): void {
-    navigate("/product/1");
+    navigate(`/product/${id}`);
   }
+
+  const { carts } = useSelector((store: RootState) => store.carts);
+
+  const cartProduct = carts.carts[0]?.products.find(
+    (product: ICartItem) => product.id === id
+  );
 
   return (
     <div className={itemCard.card_item}>
       <div className={itemCard.card_img_container} onClick={handleCardClick}>
         <picture>
           <source
-            srcSet="/src/assets/pics/shoe.avif"
-            type="image/avif"
+            srcSet={thumbnail}
+            type="image/png"
             media="(orientation: portrait)"
             sizes="(max-width: 320px) 256px"
           />
           <img
             loading="lazy"
-            src="./src/assets/pics/shoe.avif"
-            alt="image of a product"
+            src={thumbnail}
+            alt={
+              title !== undefined
+                ? "image of " + title
+                : "no such product available"
+            }
             className={itemCard.card_img}
           />
         </picture>
         <div className={itemCard.card_text_overlay}>Show details</div>
       </div>
       <div className={itemCard.card_bottom_part}>
-        <div className={itemCard.card_texts} onClick={handleCardClick}>
-          {heading}
-          <span className={itemCard.card_price}>$110</span>
+        <div className={itemCard.card_info}>
+          <div
+            className={itemCard.card_title_overflow}
+            onClick={handleCardClick}
+          >
+            {title}
+          </div>
+          <span className={itemCard.card_price}>${price}</span>
         </div>
-        {children ? (
-          children
+        {cartProduct ? (
+          <div className={itemCard.card_plusminus_btn}>
+            <PlusMinusItem count={cartProduct.quantity} />
+          </div>
         ) : (
-          <button className={itemCard.card_btn}>
+          <button className={itemCard.card_btn} aria-label="add to cart button">
             <svg
               width="20"
               height="20"

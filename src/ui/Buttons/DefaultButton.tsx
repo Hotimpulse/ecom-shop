@@ -1,7 +1,7 @@
 import React from "react";
 import defaultButton from "./defaultButton.module.scss";
 
-interface IButtonProps {
+export interface IButtonProps {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   type?: "button" | "submit" | "reset";
